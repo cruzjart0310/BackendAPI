@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Talent.Backend.DataAccessEF.Entities;
+using Talent.Backend.DataAccessEF;
 
 namespace Talent.Backend.API
 {
@@ -24,6 +24,14 @@ namespace Talent.Backend.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                var frontUrl = Configuration.GetValue<string>("FrontUrl");
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins(frontUrl).AllowAnyMethod().AllowAnyHeader();
+                });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -51,6 +59,8 @@ namespace Talent.Backend.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

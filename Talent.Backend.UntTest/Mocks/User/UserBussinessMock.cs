@@ -20,8 +20,8 @@ namespace Talent.Backend.UnitTest.Mocks.User
 
         private void Setup()
         {
-            userBussiness.Setup((x) => x.CreateUserAsync(It.IsAny<Talent.Backend.Bussiness.Models.User>()));
-            userBussiness.Setup((x) => x.DeleteUserAsync(It.IsAny<Talent.Backend.Bussiness.Models.User>())).Returns(Task.Delay(5));
+            userBussiness.Setup((x) => x.CreateAsync(It.IsAny<Talent.Backend.Bussiness.Models.User>()));
+            userBussiness.Setup((x) => x.DeleteAsync(It.IsAny<Talent.Backend.Bussiness.Models.User>())).Returns(Task.Delay(5));
         }
     }
 }

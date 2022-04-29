@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Talent.Backend.DataAccessEF.Entities;
 
-namespace Talent.Backend.DataAccessEF.Entities
+namespace Talent.Backend.DataAccessEF
 {
     public class EFContext : IdentityDbContext<User, IdentityRole, string,
         IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>,
@@ -15,13 +15,17 @@ namespace Talent.Backend.DataAccessEF.Entities
 
         }
 
-        public EFContext(DbContextOptions<EFContext> options): base(options)
+        public EFContext(DbContextOptions<EFContext> options) : base(options)
         {
-                
+
         }
 
         public DbSet<User> ApplicationUsers { get; set; }
         public DbSet<UserProfile> UserProfile { get; set; }
+        public DbSet<Survey> Survey { get; set; }
+        public DbSet<QuestionType> QuestionType { get; set; }
+        public DbSet<Question> Question { get; set; }
+        public DbSet<Answer> Answer { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
@@ -35,3 +39,4 @@ namespace Talent.Backend.DataAccessEF.Entities
         }
     }
 }
+

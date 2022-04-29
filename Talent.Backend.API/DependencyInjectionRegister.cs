@@ -24,16 +24,22 @@ namespace Talent.Backend.API
         private static void AddRegistrationServices(IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ISurveyService, SurveyService>();
+            services.AddTransient<IQuestionService, QuestionService>();
         }
 
         private static void AddRegistrationBussines(IServiceCollection services)
         {
             services.AddTransient<IUserBussiness, UserBussiness>();
+            services.AddTransient<ISurveyBussiness, SurveyBussiness>();
+            services.AddTransient<IQuestionBussiness, QuestionBussiness>();
         }
 
         private static void AddRegistrationRepositories(IServiceCollection services)
         {
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ISurveyRepository, SurveyRepository>();
+            services.AddTransient<IQuestionRepository, QuestionRepository>();
         }
     }
 }

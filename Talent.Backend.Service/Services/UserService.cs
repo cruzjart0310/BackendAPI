@@ -18,30 +18,32 @@ namespace Talent.Backend.Service
             _userBussiness = userBussiness; 
         }
 
-        public async Task CreateUserAsync(UserDto UserDto)
+        public async Task<UserDto> CreateAsync(UserDto userDto)
         {
-            var userMap = UserMapper.Map(UserDto);
-            await _userBussiness.CreateUserAsync(userMap);
+            var userMap = UserMapper.Map(userDto);
+            await _userBussiness.CreateAsync(userMap);
+
+            return userDto;
         }
 
-        public Task DeleteUserAsync(UserDto UserDto)
+        public Task DeleteAsync(UserDto userDto)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllUserAsync(PaginationDto paginationDto)
+        public async Task<IEnumerable<UserDto>> GetAllAsync(PaginationDto paginationDto)
         {
-            var users = await _userBussiness.GetAllUserAsync(PaginationMapper.Map(paginationDto));
+            var users = await _userBussiness.GetAllAsync(PaginationMapper.Map(paginationDto));
 
             return users.Select(UserMapper.Map);
         }
 
-        public Task<UserDto> GetUserAsync(string id)
+        public Task<UserDto> GetAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateUserAsync(UserDto UserDto)
+        public Task UpdateAsync(int id, UserDto userDto)
         {
             throw new NotImplementedException();
         }

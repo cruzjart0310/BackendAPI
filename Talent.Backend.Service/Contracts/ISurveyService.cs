@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Talent.Backend.Bussiness.Models;
+using Talent.Backend.Service.Dtos;
 
-namespace Talent.Backend.Bussiness.Contracts
+namespace Talent.Backend.Service.Contracts
 {
-    public interface IUserBussiness: IBussines<User>
+    public interface ISurveyService : IService<SurveyDto>
     {
 
     }

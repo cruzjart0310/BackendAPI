@@ -15,8 +15,10 @@ namespace Talent.Backend.Service.Mappers
             {
                 Id = new Guid(user.Id.ToString()),
                 FirstName = user.FirstName,
-                LastName = user.LastName,   
-                UserProfile = new UserProfile{
+                LastName = user.LastName,
+                IsMarried = user.IsMarried,
+                UserProfile = new UserProfile
+                {
                     Id = user.Id,
                 },
             };
@@ -29,6 +31,7 @@ namespace Talent.Backend.Service.Mappers
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                IsMarried = user.IsMarried,
                 UserProfile = new UserProfile
                 {
                     Id = user.Id,

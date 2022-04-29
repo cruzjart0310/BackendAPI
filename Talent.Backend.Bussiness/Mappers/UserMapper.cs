@@ -15,7 +15,8 @@ namespace Talent.Backend.Bussiness.Mappers
             {
                 Id = user.Id.ToString(),
                 FirstName = user.FirstName,
-                LastName = user.LastName,  
+                LastName = user.LastName,
+                IsMarried = user.IsMarried, 
                 UserProfile = new DataAccessEF.Entities.UserProfile
                 {
                     Id = new Guid(user.Id.ToString())
@@ -30,6 +31,7 @@ namespace Talent.Backend.Bussiness.Mappers
                 Id = new Guid(user.Id.ToString()),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                IsMarried = user.IsMarried, 
                 UserProfile = new Models.UserProfile
                 {
                     Id = new Guid(user.Id.ToString())

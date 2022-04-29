@@ -10,12 +10,12 @@ namespace Talent.Backend.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class QuestionController : ControllerBase
     {
-        private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly IQuestionService _questionService;
+        public QuestionController(IQuestionService questionService)
         {
-            _userService = userService;
+            _questionService = questionService;
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -23,10 +23,10 @@ namespace Talent.Backend.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
-        public async Task<ActionResult<UserDto>> Index([FromQuery]  PaginationDto paginationDto)
+        public async Task<ActionResult<QuestionDto>> Index([FromQuery]  PaginationDto paginationDto)
         {
-            var users = await _userService.GetAllAsync(paginationDto);
-            var queryable = users.AsQueryable();
+            var Questions = await _questionService.GetAllAsync(paginationDto);
+            var queryable = Questions.AsQueryable();
             HttpContext.ParameterPagination(queryable);
             return Ok(queryable);
         }
@@ -36,11 +36,11 @@ namespace Talent.Backend.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] UserDto userDto)
+        public async Task<ActionResult> Create([FromBody] QuestionDto QuestionDto)
         {
-            await _userService.CreateAsync(userDto);
+            var Question = await _questionService.CreateAsync(QuestionDto);
 
-            return Ok(201);
+            return Ok(Question);
         }
     }
 }

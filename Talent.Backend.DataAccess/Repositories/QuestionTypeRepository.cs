@@ -12,21 +12,21 @@ using Talent.Backend.DataAccessEF.Models;
 
 namespace Talent.Backend.DataAccessEF.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class QuestionTypeRepository : IQuestionTypeRepository
     {
         private readonly EFContext _context;
 
-        public UserRepository(EFContext context)
+        public QuestionTypeRepository(EFContext context)
         {
             _context = context;
         }
-        public async Task<User> CreateAsync(User user)
+        public async Task<QuestionType> CreateAsync(QuestionType questionType)
         {
             try
             {
-                await _context.ApplicationUsers.AddAsync(user);
+                await _context.QuestionType.AddAsync(questionType);
                 await _context.SaveChangesAsync();
-                return user;
+                return questionType;
             }
             catch (Exception ex)
             {
@@ -34,30 +34,21 @@ namespace Talent.Backend.DataAccessEF.Repositories
             }
         }
 
-        public Task DeleteAsync(User user)
+        public Task DeleteAsync(QuestionType questionType)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync(Pagination pagination)
+        public async Task<IEnumerable<QuestionType>> GetAllAsync(Pagination pagination)
         {
             try
             {
-                var query = await _context.Set<User>()
-                    .Where(x => x.IsMarried)
+                var query = await _context.Set<QuestionType>()
                     .OrderBy(x => x.Id)
-                    .Include(p => p.UserProfile)
                     .AsNoTracking()
                     .AsQueryable()
                     .Pagination(pagination)
                     .ToListAsync();
-
-                //var query = await _context.ApplicationUsers
-                //.Include(p => p.UserProfile)
-                //.AsNoTracking()
-                //.AsQueryable()
-                //.Pagination(pagination)
-                //.ToListAsync();
 
                 return query;
             }
@@ -67,12 +58,12 @@ namespace Talent.Backend.DataAccessEF.Repositories
             }
         }
 
-        public Task<User> GetAsync(int id)
+        public Task<QuestionType> GetAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(int id, User user)
+        public Task UpdateAsync(int id, QuestionType questionType)
         {
             throw new NotImplementedException();
         }

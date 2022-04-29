@@ -17,37 +17,41 @@ namespace Talent.Backend.Bussiness
         {
             _userRepository = userRepository;
         }
-        public async Task CreateUserAsync(User user)
+
+        public async Task<User> CreateAsync(User user)
         {
             var userMap = UserMapper.Map(user); 
-            await _userRepository.CreateUserAsync(userMap);
+            await _userRepository.CreateAsync(userMap);
+            return user;
         }
 
-        public Task DeleteUserAsync(User user)
+        public Task DeleteAsync(User user)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<User>> GetAllUserAsync(Pagination pagination)
+        public async Task<IEnumerable<User>> GetAllAsync(Pagination pagination)
         {
-            var users = await _userRepository.GetAllUserAsync(PaginationMapper.Map(pagination));
+            var users = await _userRepository.GetAllAsync(PaginationMapper.Map(pagination));
 
             //this an example when you need to modify original data, calculations or other acciones
-            users.ToList().ForEach(user =>  {
-                user.FirstName = user.FirstName.ToUpper().Trim();
-            });
+            //users.ToList().ForEach(user =>  {
+            //    user.FirstName = user.FirstName.ToUpper().Trim();
+            //});
 
             return users.Select(UserMapper.Map);
         }
 
-        public Task<User> GetUserAsync(string id)
+        public Task<User> GetAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateUserAsync(User user)
+        public Task UpdateAsync(int id, User user)
         {
             throw new NotImplementedException();
         }
+
+      
     }
 }

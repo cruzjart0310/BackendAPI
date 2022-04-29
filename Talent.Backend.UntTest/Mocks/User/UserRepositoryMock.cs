@@ -21,8 +21,8 @@ namespace Talent.Backend.UnitTest.Mocks.User
 
         private void Setup()
         {
-            _userRepository.Setup((x) => x.CreateUserAsync(It.IsAny<Talent.Backend.DataAccessEF.Entities.User>()));
-            _userRepository.Setup((x) => x.DeleteUserAsync(It.IsAny<Talent.Backend.DataAccessEF.Entities.User>())).Returns(Task.Delay(5));
+            _userRepository.Setup((x) => x.CreateAsync(It.IsAny<Talent.Backend.DataAccessEF.Entities.User>()));
+            _userRepository.Setup((x) => x.DeleteAsync(It.IsAny<Talent.Backend.DataAccessEF.Entities.User>())).Returns(Task.Delay(5));
         }
     }
 }
