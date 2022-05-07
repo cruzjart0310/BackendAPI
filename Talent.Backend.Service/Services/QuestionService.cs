@@ -7,7 +7,7 @@ using Talent.Backend.Service.Mappers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
 
-namespace Talent.Backend.Service
+namespace Talent.Backend.Service.Services
 {
     public class QuestionService : IQuestionService
     {
@@ -37,7 +37,12 @@ namespace Talent.Backend.Service
             return Questions.Select(QuestionMapper.Map);
         }
 
-        public Task<QuestionDto> GetAsync(int id)
+        public Task<QuestionDto> GetAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> GetTotalRecorsdAsync()
         {
             throw new NotImplementedException();
         }

@@ -26,6 +26,8 @@ namespace Talent.Backend.DataAccessEF
         public DbSet<QuestionType> QuestionType { get; set; }
         public DbSet<Question> Question { get; set; }
         public DbSet<Answer> Answer { get; set; }
+        public DbSet<Team> Team { get; set; }
+        public DbSet<TeamUser> TeamUser { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
@@ -35,6 +37,43 @@ namespace Talent.Backend.DataAccessEF
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            //builder.Entity<Survey>()
+            //.Property(b => b.UpdatedAt)
+            //.IsRequired(false)//optinal case
+            //.IsRequired()//required case
+            //;
+
+            //builder.Entity<Survey>()
+            //.Property(b => b.DeletedAt)
+            //.IsRequired(false)//optinal case
+            //.IsRequired()//required case
+            //;
+
+            builder.Entity<User>(b =>
+            {
+                b.HasMany(e => e.Teams)
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId)
+                .IsRequired();
+            });
+
+            //builder.Entity<User>(b =>
+            //{
+            //    b.HasMany(e => e.Teams)
+            //    .WithOne(e => e.UserResponsible)
+            //    .HasForeignKey(e => e.UserResponsibleId)
+            //    .IsRequired();
+            //});
+
+            builder.Entity<Team>(b =>
+            {
+                b.HasMany(e => e.Users)
+                .WithOne(e => e.TeamAssigned)
+                .HasForeignKey(e => e.TeamAssignedId)
+                .IsRequired();
+            });
+
             base.OnModelCreating(builder);
         }
     }

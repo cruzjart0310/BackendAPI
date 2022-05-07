@@ -33,9 +33,6 @@ namespace Talent.Backend.Service.Mappers
                 //        CreatedAt = a.CreatedAt,
                 //    })
                 //}),
-                CreatedAt = QuestionDto.CreatedAt,    
-                //UpdatedAt = QuestionDto.UpdatedAt,
-                //DeletedAt = QuestionDto.DeletedAt,
 
                 //2300 = 45000
                 //3000 = 62000
@@ -66,9 +63,6 @@ namespace Talent.Backend.Service.Mappers
                 //        CreatedAt = a.CreatedAt,
                 //    })
                 //}),
-                CreatedAt = Question.CreatedAt,
-                //UpdatedAt = Question.UpdatedAt,
-                //DeletedAt = Question.DeletedAt,
             };
         }
     }

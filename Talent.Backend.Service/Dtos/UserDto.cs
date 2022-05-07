@@ -10,23 +10,21 @@ namespace Talent.Backend.Service.Dtos
 {
     public class UserDto
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
         public bool IsMarried { get; set; }
 
-        [Required(ErrorMessage = "UserName is required.")]
-        public string UserName { get; set; }
-
         [Required(ErrorMessage = "Email is required.")]
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public UserProfile UserProfile { get; set; }
+        public UserProfileDto UserProfile { get; set; }
+        public IEnumerable<TeamUserDto> Teams { get; set; }
 
         public UserDto()
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
         }
     }
 }

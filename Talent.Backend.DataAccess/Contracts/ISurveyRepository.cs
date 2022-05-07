@@ -7,7 +7,7 @@ using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.DataAccessEF.Contracts
 {
-    public interface ISurveyRepository: IRepository<Survey>
+    public interface ISurveyRepository: IGenericRepository<Survey>
     {
 
     }

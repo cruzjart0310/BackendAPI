@@ -9,7 +9,7 @@ namespace Talent.Backend.Bussiness.Models
 {
     public class UserProfile
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Nickname { get; set; }
         public string EnglishLevel { get; set; }
         public string TechnicalKnowledg { get; set; }
@@ -18,5 +18,10 @@ namespace Talent.Backend.Bussiness.Models
 
         [ForeignKey("UserId")]
         public string UserId { get; set; }
+
+        public UserProfile()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
     }
 }

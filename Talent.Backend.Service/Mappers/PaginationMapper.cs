@@ -12,9 +12,8 @@ namespace Talent.Backend.Service.Mappers
         public static Talent.Backend.Bussiness.Models.Pagination Map(PaginationDto paginationDto)
             => new Bussiness.Models.Pagination
             {
-                Page = paginationDto.Page,  
-                RecordByPage = paginationDto.RecordByPage,
-                TotalMaximunRecordByPage = paginationDto.RecordsByPage
+                Page = paginationDto.PageNumber,  
+                PageZise = paginationDto.PageSize,
             };
         
     }

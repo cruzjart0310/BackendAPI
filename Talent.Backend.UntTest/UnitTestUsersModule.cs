@@ -18,7 +18,7 @@ namespace Talent.Backend.UnitTest
         {
             Mock<IUserBussiness> userBussiness = new UserBussinessMock().userBussiness;
 
-            _userService = new UserService(userBussiness.Object);
+           // _userService = new UserService(userBussiness.Object);
         }
 
         [Test]

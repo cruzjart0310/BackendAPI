@@ -44,20 +44,17 @@ namespace Talent.Backend.DataAccessEF.Repositories
             try
             {
                 var query = await _context.Set<User>()
-                    .Where(x => x.IsMarried)
+                    //.Where(x => x.IsMarried)
                     .OrderBy(x => x.Id)
                     .Include(p => p.UserProfile)
+                    .Include(t => t.Teams)
+                        .ThenInclude(t => t.TeamAssigned)
+                            .Include(x => x.Teams)
+                               .ThenInclude(x => x.UserResponsible)
                     .AsNoTracking()
                     .AsQueryable()
                     .Pagination(pagination)
                     .ToListAsync();
-
-                //var query = await _context.ApplicationUsers
-                //.Include(p => p.UserProfile)
-                //.AsNoTracking()
-                //.AsQueryable()
-                //.Pagination(pagination)
-                //.ToListAsync();
 
                 return query;
             }
@@ -67,7 +64,28 @@ namespace Talent.Backend.DataAccessEF.Repositories
             }
         }
 
-        public Task<User> GetAsync(int id)
+        public async Task<User> GetAsync(string id)
+        {
+            try
+            {
+                var user = await _context.Users
+                    .Include(p => p.UserProfile)
+                    .Include(t => t.Teams.Where(x => x.Current == 1))
+                        .ThenInclude(ta => ta.TeamAssigned)
+                            .Include(x => x.Teams)
+                               .ThenInclude(x => x.UserResponsible)
+                     .AsNoTracking()
+                     .SingleOrDefaultAsync(x => x.Id == id );
+
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Task<int> GetTotalRecorsdAsync()
         {
             throw new NotImplementedException();
         }

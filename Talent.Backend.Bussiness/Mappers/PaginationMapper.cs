@@ -12,8 +12,7 @@ namespace Talent.Backend.Bussiness.Mappers
         public static Talent.Backend.DataAccessEF.Models.Pagination Map(Pagination pagination) => new DataAccessEF.Models.Pagination()
         {
             Page = pagination.Page,
-            RecordByPage = pagination.RecordByPage,
-            TotalMaximunRecordByPage = pagination.TotalMaximunRecordByPage    
+            PageZise = pagination.PageZise,
         };
     }
 }

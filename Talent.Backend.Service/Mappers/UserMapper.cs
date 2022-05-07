@@ -9,18 +9,38 @@ namespace Talent.Backend.Service.Mappers
 {
     public static class UserMapper
     {
-        public static User Map(Talent.Backend.Service.Dtos.UserDto user)
+        public static User Map(Talent.Backend.Service.Dtos.UserDto userDto)
         {
             return new User
             {
-                Id = new Guid(user.Id.ToString()),
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                IsMarried = user.IsMarried,
+                Id = userDto.Id.ToString(),
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                //IsMarried = user.IsMarried,
                 UserProfile = new UserProfile
                 {
-                    Id = user.Id,
+                    Id = userDto.Id,
                 },
+                Teams = userDto.Teams.Select(t => new TeamUser
+                {
+                    Current = t.Current,
+                    TeamAssigned = new Team
+                    {
+                        Id = t.TeamAssigned.Id,
+                        Name = t.TeamAssigned.Name,
+                    },
+                    //User = new User
+                    //{
+                    //    FirstName = t.User.FirstName,
+                    //    LastName = t.User.LastName,
+                    //},
+                    UserResponsible = new User
+                    {
+                        FirstName = t.UserResponsible.FirstName,
+                        LastName = t.UserResponsible.LastName,
+                    }
+
+                }),
             };
         }
 
@@ -31,11 +51,31 @@ namespace Talent.Backend.Service.Mappers
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                IsMarried = user.IsMarried,
-                UserProfile = new UserProfile
+                UserProfile = new Dtos.UserProfileDto
                 {
-                    Id = user.Id,
+                    Nickname = user.UserProfile.Nickname,
+                    Avatar = user.UserProfile.Avatar,
                 },
+                Teams = user.Teams.Select(t => new Dtos.TeamUserDto
+                {
+                    Current = t.Current,
+                    TeamAssigned = new Dtos.TeamDto
+                    {
+                        Id = t.TeamAssigned.Id,
+                        Name = t.TeamAssigned.Name,
+                    },
+                    //User = new Dtos.UserAssignedDto
+                    //{
+                       
+                    //    FirstName = t.User.FirstName,
+                    //    LastName = t.User.LastName,
+                    //},
+                    UserResponsible = new Dtos.UserResponsibleDto
+                    {
+                        FirstName = t.UserResponsible.FirstName,
+                        LastName = t.UserResponsible.LastName,
+                    }
+                }),
             };
         }
     }

@@ -11,36 +11,37 @@ namespace Talent.Backend.Service.Mappers
     {
         public static Survey Map(Talent.Backend.Service.Dtos.SurveyDto surveyDto)
         {
+
+            if (surveyDto == null)
+                return null;    
+
             return new Survey
             {
                 Id = surveyDto.Id,
                 Name = surveyDto.Name,
-                Questions = surveyDto?.Questions.Select(q => new Question
+                Questions = surveyDto?.Questions?.Select(q => new Question
                 {
                     Id = q.Id,
                     Title = q.Title,
-                    CreatedAt = q.CreatedAt,
                     Type = new QuestionType
                     {
-                        Id = q.Type.Id,
-                        Title = q.Type.Title,
-                        CreatedAt = q.Type.CreatedAt
+                        Id = q?.Type.Id,
+                        Title = q?.Type.Title,
                     },
-                    Answers = q.Answers.Select(a => new Answer
+                    Answers = q?.Answers?.Select(a => new Answer
                     {
                         Id = a.Id,
                         Title = a.Title,
-                        CreatedAt = a.CreatedAt,
-                    })
-                }),
-                CreatedAt = surveyDto.CreatedAt,    
-                //UpdatedAt = surveyDto.UpdatedAt,
-                //DeletedAt = surveyDto.DeletedAt,
+                    }).ToList(),
+                }).ToList(),
             };
         }
 
         public static Talent.Backend.Service.Dtos.SurveyDto Map(Survey survey)
         {
+            if (survey == null)
+                return null;
+
             return new Dtos.SurveyDto
             {
                 Id = survey.Id,
@@ -49,23 +50,17 @@ namespace Talent.Backend.Service.Mappers
                 {
                     Id = q.Id,
                     Title = q.Title,
-                    CreatedAt = q.CreatedAt,
                     Type = new Talent.Backend.Service.Dtos.QuestionTypeDto
                     {
-                        Id = q.Type.Id,
-                        Title = q.Type.Title,
-                        CreatedAt = q.Type.CreatedAt
+                        Id = q?.Type.Id,
+                        Title = q?.Type.Title,
                     },
-                    Answers = q.Answers.Select(a => new Talent.Backend.Service.Dtos.AnswerDto
+                    Answers = q?.Answers?.Select(a => new Talent.Backend.Service.Dtos.AnswerDto
                     {
                         Id = a.Id,
                         Title = a.Title,
-                        CreatedAt = a.CreatedAt,
-                    })
-                }),
-                CreatedAt = survey.CreatedAt,
-                //UpdatedAt = survey.UpdatedAt,
-                //DeletedAt = survey.DeletedAt,
+                    }).ToList()
+                }).ToList(),
             };
         }
     }

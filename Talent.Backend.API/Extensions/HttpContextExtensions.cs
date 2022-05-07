@@ -15,7 +15,7 @@ namespace Talent.Backend.API.Extensions
             }
 
             double total = queryable.Count();
-            httpContex.Response.Headers.Add("totalRegister", total.ToString());
+            httpContex.Response.Headers.Add("x-totalRegister", total.ToString());
         }
     }
 }

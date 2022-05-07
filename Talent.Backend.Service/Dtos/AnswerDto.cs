@@ -12,8 +12,5 @@ namespace Talent.Backend.Service.Dtos
         public string Title { get; set; }
         public int Point { get; set; }
         public QuestionDto Question { get; set; }
-        public DateTime CreatedAt { get; set; }
-        //public DateTime UpdatedAt { get; set; }
-        //public DateTime DeletedAt { get; set; }
     }
 }

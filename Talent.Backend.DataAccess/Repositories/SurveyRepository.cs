@@ -22,66 +22,56 @@ namespace Talent.Backend.DataAccessEF.Repositories
         }
         public async Task<Survey> CreateAsync(Survey survey)
         {
-            try
-            {
-                await _context.Survey.AddAsync(survey);
-                await _context.SaveChangesAsync();
-                return survey;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(ex.Message);
-            }
+            await _context.Survey.AddAsync(survey);
+            await _context.SaveChangesAsync();
+            return survey;
         }
 
         public Task DeleteAsync(Survey Survey)
+        {
+            Survey.DeletedAt = DateTime.Now;
+            throw new NotImplementedException();
+        }
+
+        public void File()
         {
             throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Survey>> GetAllAsync(Pagination pagination)
         {
-            try
-            {
-                var query = await _context.Set<Survey>()
-                    //.Include(x => x.Questions)
-                    //    .ThenInclude(x => x.Type)
-                    //.Include(x => x.Questions)
-                    //    .ThenInclude(x => x.Answers)
-                    .OrderBy(x => x.Id)
-                    .AsNoTracking()
-                    .AsQueryable()
-                    .Pagination(pagination)
-                    .ToListAsync();
 
-                return query;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(ex.Message);
-            }
+            var query = await _context.Set<Survey>()
+                .Include(x => x.Questions)
+                    .ThenInclude(x => x.Type)
+                .Include(x => x.Questions)
+                    .ThenInclude(x => x.Answers)
+                .OrderBy(x => x.Id)
+                .AsNoTracking()
+                .AsQueryable()
+                .Skip((pagination.Page - 1) * pagination.PageZise)
+                .Take(pagination.PageZise)
+                .ToListAsync();
+
+            return query;
         }
 
-        public async Task<Survey> GetAsync(int id)
+        public async Task<Survey> GetAsync(string id)
         {
-            try
-            {
-                return await _context.Survey
-                    .Include(x => x.Questions)
-                        .ThenInclude(x => x.Type)
-                     .Include(x => x.Questions)
-                        .ThenInclude(x => x.Answers)
-                    .AsNoTracking()
-                    .FirstAsync(x => x.Id == id);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            };
+            return await _context.Survey
+                .Include(x => x.Questions)
+                    .ThenInclude(x => x.Type)
+                 .Include(x => x.Questions)
+                    .ThenInclude(x => x.Answers)
+                .AsNoTracking()
+                .FirstAsync(x => x.Id == Convert.ToInt32(id));
         }
+
+        public async Task<int> GetTotalRecorsdAsync() => await _context.Survey.CountAsync();
 
         public Task UpdateAsync(int id, Survey survey)
         {
+            survey.UpdatedAt = DateTime.Now;
             throw new NotImplementedException();
         }
     }

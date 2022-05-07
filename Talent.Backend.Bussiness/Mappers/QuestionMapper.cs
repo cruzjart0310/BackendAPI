@@ -15,7 +15,7 @@ namespace Talent.Backend.Bussiness.Mappers
                 //Questions = Question.Questions.Select(q => new Question
                 //{
                 //    Id = q.Id,
-                //    Title = q.Title,    
+                //    Title = q.Title,
                 //    CreatedAt = q.CreatedAt,
                 //    Type = new QuestionType
                 //    {
@@ -30,9 +30,6 @@ namespace Talent.Backend.Bussiness.Mappers
                 //        CreatedAt = a.CreatedAt,
                 //    })
                 //}),
-                CreatedAt = Question.CreatedAt,
-                UpdatedAt = Question.UpdatedAt,
-                DeletedAt = Question.DeletedAt,
             };
         }
 
@@ -60,9 +57,6 @@ namespace Talent.Backend.Bussiness.Mappers
                 //        CreatedAt = a.CreatedAt,
                 //    })
                 //}),
-                CreatedAt = Question.CreatedAt,
-                UpdatedAt = Question.UpdatedAt,
-                DeletedAt = Question.DeletedAt,
             };
         }
     }

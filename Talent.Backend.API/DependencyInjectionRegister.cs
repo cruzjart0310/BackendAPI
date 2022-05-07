@@ -3,8 +3,9 @@ using Talent.Backend.Bussiness;
 using Talent.Backend.Bussiness.Contracts;
 using Talent.Backend.DataAccessEF.Contracts;
 using Talent.Backend.DataAccessEF.Repositories;
-using Talent.Backend.Service;
 using Talent.Backend.Service.Contracts;
+using Talent.Backend.Service.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace Talent.Backend.API
 {
@@ -26,6 +27,14 @@ namespace Talent.Backend.API
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ISurveyService, SurveyService>();
             services.AddTransient<IQuestionService, QuestionService>();
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IUriService>(o =>
+            {
+                var accesor = o.GetService<IHttpContextAccessor>();
+                var request = accesor.HttpContext.Request;
+                var uri = $"{request.Scheme}{"://"}{request.Host.ToUriComponent()}";
+                return new UriService(uri);
+            });
         }
 
         private static void AddRegistrationBussines(IServiceCollection services)

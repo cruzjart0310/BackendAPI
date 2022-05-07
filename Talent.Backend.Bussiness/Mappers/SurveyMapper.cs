@@ -8,36 +8,36 @@ namespace Talent.Backend.Bussiness.Mappers
     {
         public static Survey Map(Talent.Backend.Bussiness.Models.Survey survey)
         {
+            if(survey == null) 
+                return null;
+
             return new Survey
             {
                 Id = survey.Id,
                 Name = survey.Name,
-                Questions = survey?.Questions.Select(q => new Question
+                Questions = survey?.Questions?.Select(q => new Question
                 {
                     Id = q.Id,
                     Title = q.Title,
-                    CreatedAt = q.CreatedAt,
                     Type = new QuestionType
                     {
-                        Id = q.Type.Id,
-                        Title = q.Type.Title,
-                        CreatedAt = q.Type.CreatedAt
+                        Id = q?.Type.Id,
+                        Title = q?.Type.Title,
                     },
-                    Answers = survey?.Questions.Select(a => new Answer
+                    Answers = survey?.Questions?.Select(a => new Answer
                     {
                         Id = a.Id,
                         Title = a.Title,
-                        CreatedAt = a.CreatedAt,
-                    })
-                }),
-                CreatedAt = survey.CreatedAt,
-                UpdatedAt = survey.UpdatedAt,
-                DeletedAt = survey.DeletedAt,
+                    }).ToList(),
+                }).ToList(),
             };
         }
 
         public static Talent.Backend.Bussiness.Models.Survey Map(Survey survey)
         {
+            if (survey == null)
+                return null;
+
             return new Models.Survey
             {
                 Id = survey.Id,
@@ -46,23 +46,17 @@ namespace Talent.Backend.Bussiness.Mappers
                 {
                     Id = q.Id,
                     Title = q.Title,
-                    CreatedAt = q.CreatedAt,
                     Type = new Talent.Backend.Bussiness.Models.QuestionType
                     {
-                        Id = q.Type.Id,
-                        Title = q.Type.Title,
-                        CreatedAt = q.Type.CreatedAt
+                        Id = q?.Type.Id,
+                        Title = q?.Type.Title,
                     },
-                    Answers = q?.Answers.Select(a => new Talent.Backend.Bussiness.Models.Answer
+                    Answers = q?.Answers?.Select(a => new Talent.Backend.Bussiness.Models.Answer
                     {
                         Id = a.Id,
                         Title = a.Title,
-                        CreatedAt = a.CreatedAt,
-                    })
-                }),
-                CreatedAt = survey.CreatedAt,
-                UpdatedAt = survey.UpdatedAt,
-                DeletedAt = survey.DeletedAt,
+                    }).ToList()
+                }).ToList(),
             };
         }
     }

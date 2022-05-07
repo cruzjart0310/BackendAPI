@@ -7,7 +7,7 @@ using Talent.Backend.Service.Dtos;
 
 namespace Talent.Backend.Service.Contracts
 {
-    public interface ISurveyService : IService<SurveyDto>
+    public interface ISurveyService : IGenericService<SurveyDto>
     {
 
     }

@@ -7,7 +7,7 @@ using Talent.Backend.Service.Mappers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
 
-namespace Talent.Backend.Service
+namespace Talent.Backend.Service.Services
 {
     public class SurveyService : ISurveyService
     {
@@ -37,10 +37,15 @@ namespace Talent.Backend.Service
             return surveys.Select(SurveyMapper.Map);
         }
 
-        public async Task<SurveyDto> GetAsync(int id)
+        public async Task<SurveyDto> GetAsync(string id)
         {
             var survey =  await _surveyBussiness.GetAsync(id);
             return SurveyMapper.Map(survey);
+        }
+
+        public Task<int> GetTotalRecorsdAsync()
+        {
+            return _surveyBussiness.GetTotalRecorsdAsync();
         }
 
         public Task UpdateAsync(int id, SurveyDto SurveyDto)

@@ -7,12 +7,13 @@ using Talent.Backend.Service.Dtos;
 
 namespace Talent.Backend.Service.Contracts
 {
-    public interface IService<T> where T : class
+    public interface IGenericService<T> where T : class
     {
         Task<IEnumerable<T>> GetAllAsync(PaginationDto paginationDto);
-        Task<T> GetAsync(int id);
+        Task<T> GetAsync(string id);
         Task<T> CreateAsync(T entity);
         Task UpdateAsync(int id, T entity);
         Task DeleteAsync(T entity);
+        Task<int> GetTotalRecorsdAsync();
     }
 }

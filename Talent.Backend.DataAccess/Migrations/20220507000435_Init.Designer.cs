@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Talent.Backend.DataAccessEF.Entities;
+using Talent.Backend.DataAccessEF;
 
 namespace Talent.Backend.DataAccessEF.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20220326195056_UserProfileTable")]
-    partial class UserProfileTable
+    [Migration("20220507000435_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,7 +152,191 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Talent.Backend.DataAccess.Entities.User", b =>
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Answer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Point")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answer");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Question", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("SurveyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SurveyId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("Question");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.QuestionType", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuestionType");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Survey", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Survey");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Team");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.TeamUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte>("Current")
+                        .HasColumnType("tinyint");
+
+                    b.Property<DateTime>("DateEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateInit")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TeamAssignedId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserResponsibleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamAssignedId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserResponsibleId");
+
+                    b.ToTable("TeamUser");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -163,6 +347,12 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -211,6 +401,9 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -273,7 +466,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Talent.Backend.DataAccess.Entities.User", null)
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -282,7 +475,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Talent.Backend.DataAccess.Entities.User", null)
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -297,7 +490,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Talent.Backend.DataAccess.Entities.User", null)
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -306,22 +499,88 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Talent.Backend.DataAccess.Entities.User", null)
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Answer", b =>
+                {
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId");
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Question", b =>
+                {
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.Survey", "Survey")
+                        .WithMany("Questions")
+                        .HasForeignKey("SurveyId");
+
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.QuestionType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId");
+
+                    b.Navigation("Survey");
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.TeamUser", b =>
+                {
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.Team", "TeamAssigned")
+                        .WithMany("Users")
+                        .HasForeignKey("TeamAssignedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.User", "User")
+                        .WithMany("Teams")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.User", "UserResponsible")
+                        .WithMany()
+                        .HasForeignKey("UserResponsibleId");
+
+                    b.Navigation("TeamAssigned");
+
+                    b.Navigation("User");
+
+                    b.Navigation("UserResponsible");
+                });
+
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.UserProfile", b =>
                 {
-                    b.HasOne("Talent.Backend.DataAccess.Entities.User", null)
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.User", null)
                         .WithOne("UserProfile")
                         .HasForeignKey("Talent.Backend.DataAccessEF.Entities.UserProfile", "UserId");
                 });
 
-            modelBuilder.Entity("Talent.Backend.DataAccess.Entities.User", b =>
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Question", b =>
                 {
+                    b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Survey", b =>
+                {
+                    b.Navigation("Questions");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Team", b =>
+                {
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.User", b =>
+                {
+                    b.Navigation("Teams");
+
                     b.Navigation("UserProfile");
                 });
 #pragma warning restore 612, 618

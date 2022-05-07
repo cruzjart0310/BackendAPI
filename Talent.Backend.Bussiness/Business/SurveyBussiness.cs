@@ -42,12 +42,14 @@ namespace Talent.Backend.Bussiness
             return surveys.Select(SurveyMapper.Map);
         }
 
-        public async Task<Survey> GetAsync(int id)
+        public async Task<Survey> GetAsync(string id)
         {
             var survey = await _surveyRepository.GetAsync(id);
 
             return SurveyMapper.Map(survey);
         }
+
+        public Task<int> GetTotalRecorsdAsync() => _surveyRepository.GetTotalRecorsdAsync();
 
         public Task UpdateAsync(int id, Survey Survey)
         {

@@ -7,7 +7,7 @@ using Talent.Backend.Service.Mappers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
 
-namespace Talent.Backend.Service
+namespace Talent.Backend.Service.Services
 {
     public class UserService : IUserService
     {
@@ -38,7 +38,13 @@ namespace Talent.Backend.Service
             return users.Select(UserMapper.Map);
         }
 
-        public Task<UserDto> GetAsync(int id)
+        public async Task<UserDto> GetAsync(string id)
+        {
+            var user = await _userBussiness.GetAsync(id);
+            return UserMapper.Map(user);
+        }
+
+        public Task<int> GetTotalRecorsdAsync()
         {
             throw new NotImplementedException();
         }

@@ -8,14 +8,17 @@ namespace Talent.Backend.Service.Dtos
 {
     public class PaginationDto
     {
-        public int Page { get; set; } = 1;
-        public int RecordByPage = 10;
-        private readonly int TotalMaximunRecordByPage = 50;
-
-        public int RecordsByPage
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+        public PaginationDto()
         {
-            get { return RecordByPage; }
-            set { RecordByPage = (value > TotalMaximunRecordByPage ? TotalMaximunRecordByPage : value); }
+            this.PageNumber = 1;
+            this.PageSize = 10;
+        }
+        public PaginationDto(int pageNumber, int pageSize)
+        {
+            this.PageNumber = pageNumber < 1 ? 1 : pageNumber;
+            this.PageSize = pageSize > 10 ? 10 : pageSize;
         }
     }
 }

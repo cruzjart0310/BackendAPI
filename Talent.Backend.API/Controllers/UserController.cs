@@ -31,6 +31,19 @@ namespace Talent.Backend.API.Controllers
             return Ok(queryable);
         }
 
+
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetSurvey(string id)
+        {
+            var survey = await _userService.GetAsync(id);
+
+            return Ok(survey);
+        }
+
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

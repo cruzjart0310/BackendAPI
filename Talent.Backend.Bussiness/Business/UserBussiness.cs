@@ -42,7 +42,14 @@ namespace Talent.Backend.Bussiness
             return users.Select(UserMapper.Map);
         }
 
-        public Task<User> GetAsync(int id)
+        public async Task<User> GetAsync(string id)
+        {
+            var user = await _userRepository.GetAsync(id);
+
+            return UserMapper.Map(user);
+        }
+
+        public Task<int> GetTotalRecorsdAsync()
         {
             throw new NotImplementedException();
         }

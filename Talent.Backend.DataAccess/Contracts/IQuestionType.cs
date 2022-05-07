@@ -7,7 +7,7 @@ using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.DataAccessEF.Contracts
 {
-    public interface IQuestionTypeRepository: IRepository<QuestionType>
+    public interface IQuestionTypeRepository: IGenericRepository<QuestionType>
     {
 
     }

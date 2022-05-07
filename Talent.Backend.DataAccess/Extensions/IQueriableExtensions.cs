@@ -13,8 +13,8 @@ namespace Talent.Backend.DataAccessEF.Extensions
         {
             var q = queryable
                 
-                .Skip((pagination.Page - 1) * pagination.RecordByPage)
-                .Take(pagination.RecordByPage);
+                .Skip((pagination.Page - 1) * pagination.Page)
+                .Take(pagination.PageZise);
 
             return q;
         }

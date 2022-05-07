@@ -58,7 +58,12 @@ namespace Talent.Backend.DataAccessEF.Repositories
             }
         }
 
-        public Task<Answer> GetAsync(int id)
+        public Task<Answer> GetAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> GetTotalRecorsdAsync()
         {
             throw new NotImplementedException();
         }
