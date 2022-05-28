@@ -22,43 +22,37 @@ namespace Talent.Backend.DataAccessEF.Repositories
         }
         public async Task<QuestionType> CreateAsync(QuestionType questionType)
         {
-            try
-            {
-                await _context.QuestionType.AddAsync(questionType);
-                await _context.SaveChangesAsync();
-                return questionType;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(ex.Message);
-            }
+            questionType.CreatedAt = DateTime.Now;
+            await _context.QuestionType.AddAsync(questionType);
+            await _context.SaveChangesAsync();
+            return questionType;
         }
 
-        public Task DeleteAsync(QuestionType questionType)
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistAsync(int id)
         {
             throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<QuestionType>> GetAllAsync(Pagination pagination)
         {
-            try
-            {
-                var query = await _context.Set<QuestionType>()
-                    .OrderBy(x => x.Id)
-                    .AsNoTracking()
-                    .AsQueryable()
-                    .Pagination(pagination)
-                    .ToListAsync();
 
-                return query;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(ex.Message);
-            }
+            var query = await _context.Set<QuestionType>()
+                .OrderBy(x => x.Id)
+                .AsNoTracking()
+                .AsQueryable()
+                .Pagination(pagination)
+                .ToListAsync();
+
+            return query;
+
         }
 
-        public Task<QuestionType> GetAsync(string id)
+        public Task<QuestionType> GetAsync(int id)
         {
             throw new NotImplementedException();
         }
