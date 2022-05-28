@@ -37,7 +37,7 @@ namespace Talent.Backend.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetSurvey(string id)
+        public async Task<ActionResult> GetSurvey(int id)
         {
             var survey = await _userService.GetAsync(id);
 

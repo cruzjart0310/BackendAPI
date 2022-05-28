@@ -26,7 +26,12 @@ namespace Talent.Backend.Service.Services
             return userDto;
         }
 
-        public Task DeleteAsync(UserDto userDto)
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -38,7 +43,7 @@ namespace Talent.Backend.Service.Services
             return users.Select(UserMapper.Map);
         }
 
-        public async Task<UserDto> GetAsync(string id)
+        public async Task<UserDto> GetAsync(int id)
         {
             var user = await _userBussiness.GetAsync(id);
             return UserMapper.Map(user);

@@ -25,7 +25,12 @@ namespace Talent.Backend.Bussiness
             return user;
         }
 
-        public Task DeleteAsync(User user)
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -42,7 +47,7 @@ namespace Talent.Backend.Bussiness
             return users.Select(UserMapper.Map);
         }
 
-        public async Task<User> GetAsync(string id)
+        public async Task<User> GetAsync(int id)
         {
             var user = await _userRepository.GetAsync(id);
 
