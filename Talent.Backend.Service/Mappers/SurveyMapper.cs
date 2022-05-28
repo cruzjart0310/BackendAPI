@@ -11,9 +11,7 @@ namespace Talent.Backend.Service.Mappers
     {
         public static Survey Map(Talent.Backend.Service.Dtos.SurveyDto surveyDto)
         {
-
-            if (surveyDto == null)
-                return null;    
+            if (surveyDto == null) return null;    
 
             return new Survey
             {
@@ -32,19 +30,20 @@ namespace Talent.Backend.Service.Mappers
                     {
                         Id = a.Id,
                         Title = a.Title,
+                        Point = a.Point,
                     }).ToList(),
                 }).ToList(),
+                CreatedAt = surveyDto.CreatedAt,
             };
         }
 
         public static Talent.Backend.Service.Dtos.SurveyDto Map(Survey survey)
         {
-            if (survey == null)
-                return null;
+            if (survey == null) return null;
 
             return new Dtos.SurveyDto
             {
-                Id = survey.Id,
+                Id = survey?.Id,
                 Name = survey.Name,
                 Questions = survey?.Questions?.Select(q => new Talent.Backend.Service.Dtos.QuestionDto
                 {
@@ -59,8 +58,10 @@ namespace Talent.Backend.Service.Mappers
                     {
                         Id = a.Id,
                         Title = a.Title,
+                        Point = a.Point,
                     }).ToList()
                 }).ToList(),
+                CreatedAt = survey.CreatedAt,
             };
         }
     }

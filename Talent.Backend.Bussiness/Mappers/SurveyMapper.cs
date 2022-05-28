@@ -24,12 +24,14 @@ namespace Talent.Backend.Bussiness.Mappers
                         Id = q?.Type.Id,
                         Title = q?.Type.Title,
                     },
-                    Answers = survey?.Questions?.Select(a => new Answer
+                    Answers = q?.Answers?.Select(a => new Answer
                     {
                         Id = a.Id,
                         Title = a.Title,
+                        Point = a.Point,
                     }).ToList(),
                 }).ToList(),
+                CreatedAt = survey.CreatedAt,   
             };
         }
 
@@ -55,8 +57,10 @@ namespace Talent.Backend.Bussiness.Mappers
                     {
                         Id = a.Id,
                         Title = a.Title,
+                        Point = a.Point,
                     }).ToList()
                 }).ToList(),
+                CreatedAt = survey.CreatedAt,
             };
         }
     }

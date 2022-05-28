@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace Talent.Backend.API.Controllers
         public SurveyController(ISurveyService surveyService, IUriService uriService)
         {
             _surveyService = surveyService;
-            _uriService = uriService;   
+            _uriService = uriService;
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -27,7 +28,7 @@ namespace Talent.Backend.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
-        public async Task<ActionResult<SurveyDto>> Index([FromQuery]  PaginationDto paginationDto)
+        public async Task<ActionResult<SurveyDto>> Index([FromQuery] PaginationDto paginationDto)
         {
             var route = Request.Path.Value;
             var survey = await _surveyService.GetAllAsync(paginationDto);
@@ -45,22 +46,48 @@ namespace Talent.Backend.API.Controllers
         {
             var survey = await _surveyService.CreateAsync(SurveyDto);
 
-            return Ok(survey);
+            return Ok(new ResponseDto<SurveyDto>(survey));
         }
 
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetSurvey(string id)
+        public async Task<ActionResult> GetSurvey(int id)
         {
-            var survey = await _surveyService.GetAsync(id);
-
-            if (survey == null) 
+            bool exist = await _surveyService.ExistAsync(id);
+            if (!exist)
                 return NotFound();
 
-            return Ok(survey);
+            var survey = await _surveyService.GetAsync(id);
+
+            return Ok(new ResponseDto<SurveyDto>(survey));
+        }
+
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutSurvey(int id, SurveyDto surveyDto)
+        {
+            bool exist = await _surveyService.ExistAsync(id);
+            if (!exist)
+                return NotFound();
+
+            await _surveyService
+                .UpdateAsync(Convert.ToInt32(id), surveyDto);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSurvey(int id)
+        {
+            bool exist = await _surveyService.ExistAsync(id);
+            if (!exist)
+                return NotFound();
+
+            await _surveyService.DeleteAsync(id);
+            return NoContent();
         }
     }
 }

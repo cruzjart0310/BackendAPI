@@ -25,10 +25,12 @@ namespace Talent.Backend.Bussiness
             return SurveyMapper.Map(surveyRepository);
         }
 
-        public Task DeleteAsync(Survey Survey)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await _surveyRepository.DeleteAsync(id);    
         }
+
+        public async Task<bool> ExistAsync(int id) => await _surveyRepository.ExistAsync(id);   
 
         public async Task<IEnumerable<Survey>> GetAllAsync(Pagination pagination)
         {
@@ -42,7 +44,7 @@ namespace Talent.Backend.Bussiness
             return surveys.Select(SurveyMapper.Map);
         }
 
-        public async Task<Survey> GetAsync(string id)
+        public async Task<Survey> GetAsync(int id)
         {
             var survey = await _surveyRepository.GetAsync(id);
 
@@ -51,11 +53,10 @@ namespace Talent.Backend.Bussiness
 
         public Task<int> GetTotalRecorsdAsync() => _surveyRepository.GetTotalRecorsdAsync();
 
-        public Task UpdateAsync(int id, Survey Survey)
+        public async Task UpdateAsync(int id, Survey survey)
         {
-            throw new NotImplementedException();
+            var surveyMap = SurveyMapper.Map(survey);
+            await _surveyRepository.UpdateAsync(id, surveyMap);
         }
-
-      
     }
 }
