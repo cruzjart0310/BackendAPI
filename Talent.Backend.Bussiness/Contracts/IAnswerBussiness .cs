@@ -7,7 +7,7 @@ using Talent.Backend.Bussiness.Models;
 
 namespace Talent.Backend.Bussiness.Contracts
 {
-    public interface IAnswerBussiness: IGenericBussines<User>
+    public interface IAnswerBussiness: IGenericBussines<Answer>
     {
 
     }

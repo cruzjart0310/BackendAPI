@@ -20,52 +20,47 @@ namespace Talent.Backend.DataAccessEF.Repositories
         {
             _context = context;
         }
-        public async Task<Answer> CreateAsync(Answer Answer)
+        public async Task<Answer> CreateAsync(Answer answer)
         {
-            try
-            {
-                await _context.Answer.AddAsync(Answer);
-                await _context.SaveChangesAsync();
-                return Answer;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(ex.Message);
-            }
+            answer.Question = null;
+            answer.CreatedAt = DateTime.Now;
+            await _context.Answer.AddAsync(answer);
+            await _context.SaveChangesAsync();
+            return answer;
         }
 
-        public Task DeleteAsync(Answer Answer)
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistAsync(int id)
         {
             throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Answer>> GetAllAsync(Pagination pagination)
         {
-            try
-            {
-                var query = await _context.Set<Answer>()
-                    .OrderBy(x => x.Id)
-                    .AsNoTracking()
-                    .AsQueryable()
-                    .Pagination(pagination)
-                    .ToListAsync();
+            var query = await _context.Set<Answer>()
+                .Include(q => q.Question)
+                .OrderBy(x => x.Id)
+                .AsNoTracking()
+                .AsQueryable()
+                .Skip((pagination.Page - 1) * pagination.PageZise)
+                .Take(pagination.PageZise)
+                .ToListAsync();
 
-                return query;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(ex.Message);
-            }
+            return query;
         }
 
-        public Task<Answer> GetAsync(string id)
+        public Task<Answer> GetAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> GetTotalRecorsdAsync()
+        public async Task<int> GetTotalRecorsdAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Answer.CountAsync();
         }
 
         public Task UpdateAsync(int id, Answer Answer)
