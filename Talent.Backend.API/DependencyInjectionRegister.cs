@@ -27,6 +27,10 @@ namespace Talent.Backend.API
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ISurveyService, SurveyService>();
             services.AddTransient<IQuestionService, QuestionService>();
+            services.AddTransient<IQuestionTypeService, QuestionTypeService>();
+
+            services.AddTransient<IAnswerService, AnswerService>();
+
             services.AddHttpContextAccessor();
             services.AddSingleton<IUriService>(o =>
             {
@@ -42,6 +46,8 @@ namespace Talent.Backend.API
             services.AddTransient<IUserBussiness, UserBussiness>();
             services.AddTransient<ISurveyBussiness, SurveyBussiness>();
             services.AddTransient<IQuestionBussiness, QuestionBussiness>();
+            services.AddTransient<IQuestionTypeBussiness, QuestionTypeBussiness>();
+            services.AddTransient<IAnswerBussiness, AnswerBussiness>();
         }
 
         private static void AddRegistrationRepositories(IServiceCollection services)
@@ -49,6 +55,8 @@ namespace Talent.Backend.API
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ISurveyRepository, SurveyRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();
+            services.AddTransient<IQuestionTypeRepository, QuestionTypeRepository>();
+            services.AddTransient<IAnswerRepository, AnswerRepository>();
         }
     }
 }

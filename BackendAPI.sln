@@ -22,12 +22,20 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Application", "1. Application", "{3132012B-33E7-4A1A-86F0-7706686CA6BE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Service", "2. Service", "{4327343A-D05A-44DE-A3D3-DB6009DEB6DD}"
+	ProjectSection(SolutionItems) = preProject
+		Talent.Backend.API\WeatherForecast.cs = Talent.Backend.API\WeatherForecast.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Bussiness", "3. Bussiness", "{C07D52F7-80F8-4C60-B8B1-4CCCE16A37AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. DataAccess", "4. DataAccess", "{40E6BDF1-18B2-4E26-92BA-2D21A19EF9A2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Talent.Backend.DataAccessSQLServer", "Talent.Backend.SQLServer\Talent.Backend.DataAccessSQLServer.csproj", "{0525A074-E0BA-4421-93B1-85F030EA3A7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C659E488-9F77-4911-9477-1041F093A8F0}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

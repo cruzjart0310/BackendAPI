@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +10,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Data.Common;
 using System.Linq;
+using System.Net;
+using System.Text.Json;
 using Talent.Backend.API.Middleware;
 using Talent.Backend.DataAccessEF;
+using Talent.Backend.Service.Dtos;
 
 namespace Talent.Backend.API
 {
@@ -63,7 +70,28 @@ namespace Talent.Backend.API
                 });
             });
 
-            services.AddControllers();
+            services.AddControllers().ConfigureApiBehaviorOptions(o =>
+            {
+                //o.InvalidModelStateResponseFactory = context =>
+                //{
+                //    var _logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<Startup>>();
+                //    var ex = new Exception(context.ModelState.Values.First().Errors.First().ErrorMessage);
+                //    _logger.Log(LogLevel.Error, ex, ex.Message);
+
+
+                //    var responseModel = ResponseDto<string>.Fail(ex.Message, ex.StackTrace);
+                //    context.HttpContext.Response.ContentType = "application/json";
+                //    context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                //    var result = JsonSerializer.Serialize(responseModel);
+                //    //return HttpContext.Response.WriteAsync(result);
+
+                //    return (IActionResult)context.HttpContext.Response.WriteAsync(result);
+
+                //    //context.HttpContext.Response.WriteAsync(responseModel.ToString());
+                //    //return new EmptyResult();
+                //};
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Talent.Backend.API", Version = "v1" });
@@ -117,7 +145,39 @@ namespace Talent.Backend.API
 
             app.UseAuthorization();
 
-            app.UseMiddleware<ErrorHanddlerMiddleware>();
+            app.UseExceptionHandler(errorApp =>
+            {
+                errorApp.Run(async context =>
+                {
+                    var ex = context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
+                    var responseModel = ResponseDto<string>.Fail(ex.Message, ex.StackTrace);
+
+                    context.Response.ContentType = "application/json";
+                    responseModel.Title = "One or more errors occurred.";
+                    if (ex is DbException) // we only care about this particular exception
+                    {
+                        // Send exception message as plain message
+                       // _logger.Log(LogLevel.Error, ex.Message);
+                        
+                        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        responseModel.Type = "DbException";
+                        responseModel.Status = context.Response.StatusCode;
+                    }
+                    else
+                    {
+                        // Send generic error as plain message
+                        //_logger.Log(LogLevel.Error, ex, ex.Message);
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        responseModel.Type = "Exception";
+                        responseModel.Status = context.Response.StatusCode;
+                    }
+
+                    var result = JsonSerializer.Serialize(responseModel);
+                    await context.Response.WriteAsync(result);
+                });
+            });
+
+            //app.UseMiddleware<ErrorHanddlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

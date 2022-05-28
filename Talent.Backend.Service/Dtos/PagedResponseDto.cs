@@ -22,8 +22,7 @@ namespace Talent.Backend.Service.Dtos
             this.PageSize = pageSize;
             this.Data = data;
             this.Message = null;
-            this.Succeeded = true;
-            this.Errors = null;
+            this.Success = true;
         }
     }
 }

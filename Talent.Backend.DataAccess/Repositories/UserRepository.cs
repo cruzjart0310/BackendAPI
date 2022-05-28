@@ -22,67 +22,55 @@ namespace Talent.Backend.DataAccessEF.Repositories
         }
         public async Task<User> CreateAsync(User user)
         {
-            try
-            {
-                await _context.ApplicationUsers.AddAsync(user);
-                await _context.SaveChangesAsync();
-                return user;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(ex.Message);
-            }
+            await _context.ApplicationUsers.AddAsync(user);
+            await _context.SaveChangesAsync();
+            return user;
+
         }
 
-        public Task DeleteAsync(User user)
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistAsync(int id)
         {
             throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<User>> GetAllAsync(Pagination pagination)
         {
-            try
-            {
-                var query = await _context.Set<User>()
-                    //.Where(x => x.IsMarried)
-                    .OrderBy(x => x.Id)
-                    .Include(p => p.UserProfile)
-                    .Include(t => t.Teams)
-                        .ThenInclude(t => t.TeamAssigned)
-                            .Include(x => x.Teams)
-                               .ThenInclude(x => x.UserResponsible)
-                    .AsNoTracking()
-                    .AsQueryable()
-                    .Pagination(pagination)
-                    .ToListAsync();
+            var query = await _context.Set<User>()
+                //.Where(x => x.IsMarried)
+                .OrderBy(x => x.Id)
+                .Include(p => p.UserProfile)
+                .Include(t => t.Teams)
+                    .ThenInclude(t => t.TeamAssigned)
+                        .Include(x => x.Teams)
+                           .ThenInclude(x => x.UserResponsible)
+                .AsNoTracking()
+                .AsQueryable()
+                .Skip((pagination.Page - 1) * pagination.PageZise)
+                .Take(pagination.PageZise)
+                .ToListAsync();
 
-                return query;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(ex.Message);
-            }
+            return query;
         }
 
-        public async Task<User> GetAsync(string id)
+        public async Task<User> GetAsync(int id)
         {
-            try
-            {
-                var user = await _context.Users
-                    .Include(p => p.UserProfile)
-                    .Include(t => t.Teams.Where(x => x.Current == 1))
-                        .ThenInclude(ta => ta.TeamAssigned)
-                            .Include(x => x.Teams)
-                               .ThenInclude(x => x.UserResponsible)
-                     .AsNoTracking()
-                     .SingleOrDefaultAsync(x => x.Id == id );
 
-                return user;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var user = await _context.Users
+                .Include(p => p.UserProfile)
+                .Include(t => t.Teams.Where(x => x.Current == 1))
+                    .ThenInclude(ta => ta.TeamAssigned)
+                        .Include(x => x.Teams)
+                           .ThenInclude(x => x.UserResponsible)
+                 .AsNoTracking()
+                 .SingleOrDefaultAsync(x => x.Id == id.ToString());
+
+            return user;
+
         }
 
         public Task<int> GetTotalRecorsdAsync()
