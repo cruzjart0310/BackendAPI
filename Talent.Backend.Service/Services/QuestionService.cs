@@ -18,14 +18,19 @@ namespace Talent.Backend.Service.Services
             _questionBussiness = questionBussiness; 
         }
 
-        public async Task<QuestionDto> CreateAsync(QuestionDto QuestionDto)
+        public async Task<QuestionDto> CreateAsync(QuestionDto questionDto)
         {
-            var QuestionMap = QuestionMapper.Map(QuestionDto);
-            var Question = await _questionBussiness.CreateAsync(QuestionMap);
-            return QuestionMapper.Map(Question);
+            var questionMap = QuestionMapper.Map(questionDto);
+            var questions = await _questionBussiness.CreateAsync(questionMap);
+            return QuestionMapper.Map(questions);
         }
 
-        public Task DeleteAsync(QuestionDto QuestionDto)
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -42,12 +47,17 @@ namespace Talent.Backend.Service.Services
             throw new NotImplementedException();
         }
 
-        public Task<int> GetTotalRecorsdAsync()
+        public Task<QuestionDto> GetAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(int id, QuestionDto QuestionDto)
+        public async Task<int> GetTotalRecorsdAsync()
+        {
+            return await _questionBussiness.GetTotalRecorsdAsync();
+        }
+
+        public Task UpdateAsync(int id, QuestionDto questionDto)
         {
             throw new NotImplementedException();
         }

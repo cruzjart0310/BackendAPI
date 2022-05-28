@@ -11,28 +11,33 @@ namespace Talent.Backend.Bussiness
 {
     public class QuestionBussiness : IQuestionBussiness
     {
-        private readonly IQuestionRepository _QuestionRepository;
+        private readonly IQuestionRepository _questionRepository;
 
         public QuestionBussiness(IQuestionRepository questionRepository)
         {
-            _QuestionRepository = questionRepository;
+            _questionRepository = questionRepository;
         }
 
         public async Task<Question> CreateAsync(Question question)
         {
             var questionMap = QuestionMapper.Map(question); 
-            var questionRepository = await _QuestionRepository.CreateAsync(questionMap);
+            var questionRepository = await _questionRepository.CreateAsync(questionMap);
             return QuestionMapper.Map(questionRepository);
         }
 
-        public Task DeleteAsync(Question Question)
+        public Task DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> ExistAsync(int id)
         {
             throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Question>> GetAllAsync(Pagination pagination)
         {
-            var Questions = await _QuestionRepository.GetAllAsync(PaginationMapper.Map(pagination));
+            var Questions = await _questionRepository.GetAllAsync(PaginationMapper.Map(pagination));
 
             //this an example when you need to modify original data, calculations or other acciones
             //Questions.ToList().ForEach(Question =>  {
@@ -47,9 +52,14 @@ namespace Talent.Backend.Bussiness
             throw new NotImplementedException();
         }
 
-        public Task<int> GetTotalRecorsdAsync()
+        public Task<Question> GetAsync(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<int> GetTotalRecorsdAsync()
+        {
+            return await _questionRepository.GetTotalRecorsdAsync();
         }
 
         public Task UpdateAsync(int id, Question Question)

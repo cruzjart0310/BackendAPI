@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using Talent.Backend.API.Extensions;
+using Talent.Backend.API.Helpers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
 
@@ -12,10 +13,13 @@ namespace Talent.Backend.API.Controllers
     [ApiController]
     public class QuestionController : ControllerBase
     {
+        private readonly IUriService _uriService;
         private readonly IQuestionService _questionService;
-        public QuestionController(IQuestionService questionService)
+
+        public QuestionController(IQuestionService questionService, IUriService uriService)
         {
             _questionService = questionService;
+            _uriService = uriService;   
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -25,10 +29,12 @@ namespace Talent.Backend.API.Controllers
         [HttpGet]
         public async Task<ActionResult<QuestionDto>> Index([FromQuery]  PaginationDto paginationDto)
         {
-            var Questions = await _questionService.GetAllAsync(paginationDto);
-            var queryable = Questions.AsQueryable();
-            HttpContext.ParameterPagination(queryable);
-            return Ok(queryable);
+            var route = Request.Path.Value;
+            var questions = await _questionService.GetAllAsync(paginationDto);
+            var totalRecorsd = await _questionService.GetTotalRecorsdAsync();
+            var response = PaginationHelper.CreateResponse<QuestionDto>(questions.AsQueryable(), paginationDto, totalRecorsd, _uriService, route);
+            return Ok(response);
+
         }
 
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -41,6 +47,31 @@ namespace Talent.Backend.API.Controllers
             var Question = await _questionService.CreateAsync(QuestionDto);
 
             return Ok(Question);
+        }
+
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutQuestion(int id, QuestionDto questionDto)
+        {
+            bool exist = await _questionService.ExistAsync(id);
+            if (!exist)
+                return NotFound();
+
+            await _questionService
+                .UpdateAsync(id, questionDto);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteQuestion(int id)
+        {
+            bool exist = await _questionService.ExistAsync(id);
+            if (!exist)
+                return NotFound();
+
+            await _questionService.DeleteAsync(id);
+            return NoContent();
         }
     }
 }

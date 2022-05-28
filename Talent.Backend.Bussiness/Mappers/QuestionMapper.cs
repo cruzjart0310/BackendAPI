@@ -6,12 +6,26 @@ namespace Talent.Backend.Bussiness.Mappers
 {
     public static class QuestionMapper
     {
-        public static Question Map(Talent.Backend.Bussiness.Models.Question Question)
+        public static Question Map(Talent.Backend.Bussiness.Models.Question question)
         {
             return new Question
             {
-                Id = Question.Id,
-                Title = Question.Title,
+                Id = question.Id,
+                Title = question.Title,
+                TypeId = question.TypeId,   
+                SurveyId = question.SurveyId,   
+                CreatedAt = question.CreatedAt,
+                Type = new QuestionType
+                {
+                    Id = question?.Type?.Id,
+                    Title = question?.Type?.Title,
+                    //        CreatedAt = q.Type.CreatedAt
+                },
+                Survey = new Survey
+                {
+                    Id = question?.Survey?.Id,
+                    Name = question?.Survey?.Name,
+                }
                 //Questions = Question.Questions.Select(q => new Question
                 //{
                 //    Id = q.Id,
@@ -33,12 +47,26 @@ namespace Talent.Backend.Bussiness.Mappers
             };
         }
 
-        public static Talent.Backend.Bussiness.Models.Question Map(Question Question)
+        public static Talent.Backend.Bussiness.Models.Question Map(Question question)
         {
             return new Models.Question
             {
-                Id = Question.Id,
-                Title = Question.Title,
+                Id = question.Id,
+                Title = question.Title,
+                TypeId = question.TypeId,
+                SurveyId = question.SurveyId,
+                CreatedAt = question.CreatedAt,
+                Type = new Models.QuestionType
+                {
+                    Id = question?.Type?.Id,
+                    Title = question?.Type?.Title,
+                    //        CreatedAt = q.Type.CreatedAt
+                },
+                Survey = new Models.Survey
+                {
+                    Id = question?.Survey?.Id,
+                    Name = question?.Survey?.Name,
+                }
                 //Questions = Question?.Questions?.Select(q => new Talent.Backend.Bussiness.Models.Question
                 //{
                 //    Id = q.Id,
