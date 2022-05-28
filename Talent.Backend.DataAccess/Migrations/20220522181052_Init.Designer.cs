@@ -10,7 +10,7 @@ using Talent.Backend.DataAccessEF;
 namespace Talent.Backend.DataAccessEF.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20220507000435_Init")]
+    [Migration("20220522181052_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -168,7 +168,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.Property<int>("Point")
                         .HasColumnType("int");
 
-                    b.Property<int?>("QuestionId")
+                    b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -197,13 +197,13 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SurveyId")
+                    b.Property<int>("SurveyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TypeId")
+                    b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -244,7 +244,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Survey", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -351,9 +351,6 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -401,9 +398,6 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -510,7 +504,9 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 {
                     b.HasOne("Talent.Backend.DataAccessEF.Entities.Question", "Question")
                         .WithMany("Answers")
-                        .HasForeignKey("QuestionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Question");
                 });
@@ -519,11 +515,15 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 {
                     b.HasOne("Talent.Backend.DataAccessEF.Entities.Survey", "Survey")
                         .WithMany("Questions")
-                        .HasForeignKey("SurveyId");
+                        .HasForeignKey("SurveyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Talent.Backend.DataAccessEF.Entities.QuestionType", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId");
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Survey");
 
