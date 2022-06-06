@@ -28,6 +28,7 @@ namespace Talent.Backend.DataAccessEF
         public DbSet<Answer> Answer { get; set; }
         public DbSet<Team> Team { get; set; }
         public DbSet<TeamUser> TeamUser { get; set; }
+        public DbSet<UserAnswer> UserAnswer { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
