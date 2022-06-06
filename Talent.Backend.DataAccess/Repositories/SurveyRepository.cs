@@ -43,14 +43,13 @@ namespace Talent.Backend.DataAccessEF.Repositories
             //await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistAsync(int id) => 
+        public async Task<bool> ExistAsync(int id) =>
             await _context.Survey
                 .Where(s => s.DeletedAt == null)
                 .AnyAsync(x => x.Id == id);
 
         public async Task<IEnumerable<Survey>> GetAllAsync(Pagination pagination)
         {
-
             var query = await _context.Set<Survey>()
                 .Where(s => s.DeletedAt == null)
                 .Include(x => x.Questions)
@@ -74,7 +73,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
                 .Include(q => q.Questions)
                     .ThenInclude(t => t.Type)
                  .Include(qa => qa.Questions)
-                    .ThenInclude(a => a.Answers) //.Where(x => x.Questions.Any())
+                    .ThenInclude(a => a.Answers)
                 .AsNoTracking()
                 //.FirstAsync(x => x.Id == Convert.ToInt32(id)); //GetException
                 .SingleOrDefaultAsync(x => x.Id == id);
@@ -82,7 +81,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
             return item;
         }
 
-        public async Task<int> GetTotalRecorsdAsync() => 
+        public async Task<int> GetTotalRecorsdAsync() =>
             await _context.Survey
             .Where(s => s.DeletedAt == null)
             .CountAsync();
