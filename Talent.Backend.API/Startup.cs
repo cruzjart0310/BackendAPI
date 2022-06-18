@@ -22,6 +22,9 @@ using System.Text.Json;
 using Talent.Backend.API.Middleware;
 using Talent.Backend.DataAccessEF;
 using Talent.Backend.DataAccessEF.Entities;
+using Talent.Backend.Email;
+using Talent.Backend.Email.Contracts;
+using Talent.Backend.Email.Models;
 using Talent.Backend.Service.Dtos;
 
 namespace Talent.Backend.API
@@ -109,7 +112,13 @@ namespace Talent.Backend.API
             .AddEntityFrameworkStores<EFContext>()
             .AddDefaultTokenProviders();
 
-            
+            #region Email configuration
+            var emailConfig = Configuration
+               .GetSection("EmailConfiguration")
+               .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+            services.AddScoped<IEmailSender, EmailSender>();
+            #endregion
 
             #region JWT Configuration
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -127,6 +136,7 @@ namespace Talent.Backend.API
                     };
                 });
             #endregion
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Talent.Backend.API", Version = "v1" });
