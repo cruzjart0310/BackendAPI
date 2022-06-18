@@ -50,13 +50,49 @@ namespace Talent.Backend.DataAccessEF.Repositories
 
         public async Task<IEnumerable<Survey>> GetAllAsync(Pagination pagination)
         {
+            #region Earge loading
+            //var q = await _context.Set<Survey>()
+            //    .Where(s => s.DeletedAt == null)
+            //    .Include(x => x.Questions)
+            //        .ThenInclude(x => x.Type)
+            //    .Include(x => x.Questions)
+            //        .ThenInclude(x => x.Answers)
+            //    .OrderBy(x => x.Id)
+            //    .AsNoTracking()
+            //    .AsQueryable()
+            //    .Skip((pagination.Page - 1) * pagination.PageZise)
+            //    .Take(pagination.PageZise)
+            //    .ToListAsync();
+            #endregion
+
             var query = await _context.Set<Survey>()
                 .Where(s => s.DeletedAt == null)
-                .Include(x => x.Questions)
-                    .ThenInclude(x => x.Type)
-                .Include(x => x.Questions)
-                    .ThenInclude(x => x.Answers)
                 .OrderBy(x => x.Id)
+                .Select(s => new Survey
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    Questions = s.Questions.Select(q => new Question
+                    {
+                        Id = q.Id,
+                        Title = q.Title,
+                        Type = new QuestionType
+                        {
+                            Id= q.Type.Id,
+                            Title= q.Title,
+                        },
+                        Answers = q.Answers.Select(a => new Answer
+                        {
+                            Id = a.Id,  
+                            Title = a.Title,
+                            Point = a.Point,
+                            CreatedAt = a.CreatedAt,
+                        }),
+                        CreatedAt = q.CreatedAt,
+                    }),
+                    CreatedAt = s.CreatedAt,
+                })
+                
                 .AsNoTracking()
                 .AsQueryable()
                 .Skip((pagination.Page - 1) * pagination.PageZise)
@@ -83,8 +119,8 @@ namespace Talent.Backend.DataAccessEF.Repositories
 
         public async Task<int> GetTotalRecorsdAsync() =>
             await _context.Survey
-            .Where(s => s.DeletedAt == null)
-            .CountAsync();
+                .Where(s => s.DeletedAt == null)
+                .CountAsync();
 
         public async Task UpdateAsync(int id, Survey survey)
         {
