@@ -37,11 +37,11 @@ namespace Talent.Backend.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetSurvey(int id)
+        public async Task<ActionResult> GetSurvey(string id)
         {
-            var survey = await _userService.GetAsync(id);
+            var user = await _userService.GetAsync(int.Parse(id));
 
-            return Ok(survey);
+            return Ok(user);
         }
 
         [ProducesResponseType(StatusCodes.Status201Created)]
