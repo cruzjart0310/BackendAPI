@@ -78,5 +78,27 @@ namespace Talent.Backend.Service.Mappers
                 }),
             };
         }
+
+        public static User Map(Talent.Backend.Service.Dtos.UserForRegistrationDto userDto, bool isFromService)
+        {
+            return new User
+            {
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                Email= userDto.Email,
+                Password = userDto.PasswordHash
+            };
+        }
+
+        public static Talent.Backend.Service.Dtos.UserForRegistrationDto Map(User user, bool isFromBussiness)
+        {
+            return new Talent.Backend.Service.Dtos.UserForRegistrationDto
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PasswordHash = user.Password
+            };
+        }
     }
 }

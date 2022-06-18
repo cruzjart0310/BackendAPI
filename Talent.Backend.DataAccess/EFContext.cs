@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Talent.Backend.DataAccessEF.Entities;
+using System;
 
 namespace Talent.Backend.DataAccessEF
 {
@@ -32,6 +33,7 @@ namespace Talent.Backend.DataAccessEF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
+            optionBuilder.LogTo(Console.WriteLine);
             optionBuilder.UseSqlServer(@"Server=LAPTOP-NOTLMK8N\SQLEXPRESS;Database=backendApi;Integrated Security=True");
             base.OnConfiguring(optionBuilder);
         }

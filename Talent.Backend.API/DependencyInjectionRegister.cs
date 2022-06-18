@@ -6,6 +6,10 @@ using Talent.Backend.DataAccessEF.Repositories;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Talent.Backend.Authentication.TokenGeneration;
+using Microsoft.Extensions.Configuration;
+using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.API
 {
@@ -30,6 +34,7 @@ namespace Talent.Backend.API
             services.AddTransient<IQuestionTypeService, QuestionTypeService>();
             services.AddTransient<IAnswerService, AnswerService>();
             services.AddTransient<IUserAnswerService, UserAnswerService>();
+            services.AddTransient<IAccountService, AccountService>();
 
             services.AddHttpContextAccessor();
             services.AddSingleton<IUriService>(o =>
@@ -49,6 +54,7 @@ namespace Talent.Backend.API
             services.AddTransient<IQuestionTypeBussiness, QuestionTypeBussiness>();
             services.AddTransient<IAnswerBussiness, AnswerBussiness>();
             services.AddTransient<IUserAnswerBussiness, UserAnswerBussiness>();
+            services.AddTransient<IAccountBussiness, AccountBussiness>();
         }
 
         private static void AddRegistrationRepositories(IServiceCollection services)
@@ -59,6 +65,7 @@ namespace Talent.Backend.API
             services.AddTransient<IQuestionTypeRepository, QuestionTypeRepository>();
             services.AddTransient<IAnswerRepository, AnswerRepository>();
             services.AddTransient<IUserAnswerRepository, UserAnswerRepository>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
         }
     }
 }
