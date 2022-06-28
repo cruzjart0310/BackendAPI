@@ -16,18 +16,7 @@ namespace Talent.Backend.Service.Mappers
                 FirstName = userForRegistrationDto.FirstName,
                 LastName = userForRegistrationDto.LastName,
                 Email = userForRegistrationDto.Email,
-                PasswordHash = userForRegistrationDto.PasswordHash
-            };
-        }
-
-        public static Talent.Backend.Service.Dtos.UserForRegistrationDto Map(UserForRegistration user)
-        {
-            return new Talent.Backend.Service.Dtos.UserForRegistrationDto
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                PasswordHash = user.PasswordHash
+                PasswordHash = userForRegistrationDto.Password
             };
         }
 
@@ -40,7 +29,7 @@ namespace Talent.Backend.Service.Mappers
                     FirstName = user.Element.FirstName,
                     LastName = user.Element.LastName,
                     Email = user.Element.Email,
-                    PasswordHash = user.Element.PasswordHash,
+                    Password = user.Element.PasswordHash,
                 },
                 Errors = user.Errors
             };

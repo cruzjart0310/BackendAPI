@@ -22,7 +22,6 @@ namespace Talent.Backend.Bussiness
         {
             var userMap = UserRegistrationMapper.Map(user); 
             var userRepository = await _accountRepository.CreateAsync(userMap);
-
             return UserRegistrationMapper.Map(userRepository, true);
         }
 
@@ -46,11 +45,11 @@ namespace Talent.Backend.Bussiness
             throw new NotImplementedException();
         }
 
-        public Task<UserForRegistration> LoginAsync(UserForRegistration entity)
+        public async Task<TokenRespose<UserForAuthentication>> LoginAsync(UserForAuthentication userForAuthentication)
         {
-            var user = UserRegistrationMapper.Map(entity);
-
-            return null;
+            var user = UserForAuthenticationMapper.Map(userForAuthentication);
+            var userRepository = await _accountRepository.LoginAsync(user);
+            return UserForAuthenticationMapper.Map(userRepository);
         }
 
         public Task LogOutAsync()

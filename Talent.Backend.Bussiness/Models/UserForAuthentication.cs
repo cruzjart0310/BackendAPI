@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Talent.Backend.DataAccessEF.Models
+namespace Talent.Backend.Bussiness.Models
 {
     public class UserForAuthentication
     {

@@ -83,7 +83,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
                 {
                     Errors = new List<string>()
                     {
-                        "Email not cofirmed"
+                        "Email not confirmed"
                     }
                 };
             }
@@ -180,7 +180,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
                 await _userManager.AccessFailedAsync(user);
                 if (await _userManager.IsLockedOutAsync(user))
                 {
-                    await _emailSender.SendEmailAsync(MailerConfig.getMessage(userForAuthentication.ClientURI, userForAuthentication.Email));
+                    await _emailSender.SendEmailAsync(MailerConfig.getMessage(userForAuthentication.ClientUri, userForAuthentication.Email));
 
                     return new TokenRespose<User>
                     {

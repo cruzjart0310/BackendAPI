@@ -43,9 +43,11 @@ namespace Talent.Backend.Service.Services
             throw new NotImplementedException();
         }
 
-        public Task<UserForRegistrationDto> LoginAsync(UserForRegistrationDto entity)
+        public async Task<LoginResposeDto<UserForAuthenticationDto>> LoginAsync(UserForAuthenticationDto entity)
         {
-            throw new NotImplementedException();
+            var map = UserForAuthenticationMapper.Map(entity);
+            var userLogin = await  _accountBussiness.LoginAsync(map);
+            return UserForAuthenticationMapper.Map(userLogin);
         }
 
         public Task LogOutAsync()

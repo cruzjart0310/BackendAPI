@@ -10,7 +10,8 @@ namespace Talent.Backend.Bussiness.Contracts
     public interface IGenericAccountBussiness<T> where T : class
     {
         Task<AccountResponse<T>> CreateAsync(T entity);
-        Task<T> LoginAsync(T entity);
+
+        Task<TokenRespose<UserForAuthentication>> LoginAsync(UserForAuthentication userForAuthentication);
 
         Task LogOutAsync();
 

@@ -86,7 +86,7 @@ namespace Talent.Backend.Service.Mappers
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
                 Email= userDto.Email,
-                Password = userDto.PasswordHash
+                Password = userDto.Password
             };
         }
 
@@ -97,7 +97,7 @@ namespace Talent.Backend.Service.Mappers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                PasswordHash = user.Password
+                Password = user.Password
             };
         }
     }

@@ -35,7 +35,7 @@ namespace Talent.Backend.API.Controllers
             var result = await _accountService.CreateAsync(userDto);
             if (result.Errors != null && result.Errors.Any())
             {
-                return BadRequest(new {Errors = result.Errors});
+                return BadRequest(new { result.Errors});
             }
             return Ok(201);
         }
@@ -45,22 +45,26 @@ namespace Talent.Backend.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost("Login")]
-        public async Task<ActionResult> GetSurvey(int id)
+        public async Task<ActionResult> Login([FromBody] UserForAuthenticationDto userForAuthenticationDto)
         {
-            var result = await _accountService.LoginAsync();
-            return Ok();
+            var result = await _accountService.LoginAsync(userForAuthenticationDto);
+            if (result.Errors != null && result.Errors.Any())
+            {
+                return BadRequest(new { result.Errors });
+            }
+            return Ok(result);
         }
 
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSurvey(int id, SurveyDto surveyDto)
+        public async Task<ActionResult> PutSurvey(int id, SurveyDto surveyDto)
         {
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSurvey(int id)
+        public async Task<ActionResult> DeleteSurvey(int id)
         {
             return NoContent();
         }
