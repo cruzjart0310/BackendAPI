@@ -23,7 +23,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
         public async Task<QuestionType> CreateAsync(QuestionType questionType)
         {
             questionType.CreatedAt = DateTime.Now;
-            await _context.QuestionType.AddAsync(questionType);
+            await _context.QuestionTypes.AddAsync(questionType);
             await _context.SaveChangesAsync();
             return questionType;
         }

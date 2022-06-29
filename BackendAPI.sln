@@ -22,9 +22,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Application", "1. Application", "{3132012B-33E7-4A1A-86F0-7706686CA6BE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Service", "2. Service", "{4327343A-D05A-44DE-A3D3-DB6009DEB6DD}"
-	ProjectSection(SolutionItems) = preProject
-		Talent.Backend.API\WeatherForecast.cs = Talent.Backend.API\WeatherForecast.cs
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Bussiness", "3. Bussiness", "{C07D52F7-80F8-4C60-B8B1-4CCCE16A37AD}"
 EndProject
@@ -45,7 +42,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7. Common", "7. Common", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8. Notifications Service", "8. Notifications Service", "{3857F0E6-C490-4B24-B96D-D757D6DC8F3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talent.Backend.Email", "Talent.Backend.Email\Talent.Backend.Email.csproj", "{01C55BBC-B2CA-434D-B857-454300E64574}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Talent.Backend.Email", "Talent.Backend.Email\Talent.Backend.Email.csproj", "{01C55BBC-B2CA-434D-B857-454300E64574}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Talent.Backend.SendGridEmail", "Talent.Backend.SendGridEmail\Talent.Backend.SendGridEmail.csproj", "{84D00C2F-ED60-4ECF-B965-026026DB6F59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +88,10 @@ Global
 		{01C55BBC-B2CA-434D-B857-454300E64574}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01C55BBC-B2CA-434D-B857-454300E64574}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01C55BBC-B2CA-434D-B857-454300E64574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84D00C2F-ED60-4ECF-B965-026026DB6F59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84D00C2F-ED60-4ECF-B965-026026DB6F59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84D00C2F-ED60-4ECF-B965-026026DB6F59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84D00C2F-ED60-4ECF-B965-026026DB6F59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +114,7 @@ Global
 		{A13CEB17-6EB9-4DB0-84D0-B2B2102C7C98} = {A13E03A0-8D74-4F48-9512-3A16D3D2E3A4}
 		{3857F0E6-C490-4B24-B96D-D757D6DC8F3A} = {A13E03A0-8D74-4F48-9512-3A16D3D2E3A4}
 		{01C55BBC-B2CA-434D-B857-454300E64574} = {3857F0E6-C490-4B24-B96D-D757D6DC8F3A}
+		{84D00C2F-ED60-4ECF-B965-026026DB6F59} = {3857F0E6-C490-4B24-B96D-D757D6DC8F3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4710E044-0496-48E8-9371-24DCAC9B8DDE}

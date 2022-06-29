@@ -24,7 +24,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
         {
             answer.Question = null;
             answer.CreatedAt = DateTime.Now;
-            await _context.Answer.AddAsync(answer);
+            await _context.Answers.AddAsync(answer);
             await _context.SaveChangesAsync();
             return answer;
         }
@@ -60,7 +60,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
 
         public async Task<int> GetTotalRecorsdAsync()
         {
-            return await _context.Answer.CountAsync();
+            return await _context.Answers.CountAsync();
         }
 
         public Task UpdateAsync(int id, Answer Answer)

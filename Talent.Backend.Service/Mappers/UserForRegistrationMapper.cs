@@ -20,7 +20,7 @@ namespace Talent.Backend.Service.Mappers
             };
         }
 
-        public static Talent.Backend.Service.Dtos.AccountResponseDto<Talent.Backend.Service.Dtos.UserForRegistrationDto> Map(Talent.Backend.Bussiness.Models.AccountResponse<Talent.Backend.Bussiness.Models.UserForRegistration> user, bool isFromBussiness)
+        public static Talent.Backend.Service.Dtos.AccountResponseDto<Talent.Backend.Service.Dtos.UserForRegistrationDto> Map(Talent.Backend.Bussiness.Models.AccountResponse<Talent.Backend.Bussiness.Models.UserForRegistration> user)
         {
             return new Talent.Backend.Service.Dtos.AccountResponseDto<Talent.Backend.Service.Dtos.UserForRegistrationDto>
             {

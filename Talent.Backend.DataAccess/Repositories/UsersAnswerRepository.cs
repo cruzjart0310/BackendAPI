@@ -35,15 +35,15 @@ namespace Talent.Backend.DataAccessEF.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var item = await _context.Survey.SingleAsync(s => s.Id == id);
-            _context.Survey.Remove(item);
+            var item = await _context.Surveys.SingleAsync(s => s.Id == id);
+            _context.Surveys.Remove(item);
             _context.Entry(item).Property(x => x.CreatedAt).IsModified = false;
             _context.Entry(item).Property(x => x.UpdatedAt).IsModified = false;
             await _context.SaveChangesAsync();
         }
 
         public async Task<bool> ExistAsync(int id) =>
-            await _context.Survey
+            await _context.Surveys
                 .Where(s => s.DeletedAt == null)
                 .AnyAsync(x => x.Id == id);
 

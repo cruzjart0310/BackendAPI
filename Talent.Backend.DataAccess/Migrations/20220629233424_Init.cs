@@ -30,7 +30,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsMarried = table.Column<bool>(type: "bit", nullable: false),
-                    CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -52,7 +52,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "QuestionType",
+                name: "QuestionTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -64,11 +64,11 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_QuestionType", x => x.Id);
+                    table.PrimaryKey("PK_QuestionTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Survey",
+                name: "Surveys",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -80,11 +80,11 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Survey", x => x.Id);
+                    table.PrimaryKey("PK_Surveys", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Team",
+                name: "Teams",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -96,7 +96,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Team", x => x.Id);
+                    table.PrimaryKey("PK_Teams", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -206,22 +206,20 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserProfile",
+                name: "UserAnswer",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nickname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EnglishLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TechnicalKnowledg = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CvLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    AnswerId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserProfile", x => x.Id);
+                    table.PrimaryKey("PK_UserAnswer", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserProfile_AspNetUsers_UserId",
+                        name: "FK_UserAnswer_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -229,7 +227,30 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Question",
+                name: "UserProfile",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nickname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EnglishLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TechnicalKnowledg = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CvLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserProfile", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_UserProfile_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Questions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -243,17 +264,17 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Question", x => x.Id);
+                    table.PrimaryKey("PK_Questions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Question_QuestionType_TypeId",
+                        name: "FK_Questions_QuestionTypes_TypeId",
                         column: x => x.TypeId,
-                        principalTable: "QuestionType",
+                        principalTable: "QuestionTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Question_Survey_SurveyId",
+                        name: "FK_Questions_Surveys_SurveyId",
                         column: x => x.SurveyId,
-                        principalTable: "Survey",
+                        principalTable: "Surveys",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -290,15 +311,15 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TeamUser_Team_TeamAssignedId",
+                        name: "FK_TeamUser_Teams_TeamAssignedId",
                         column: x => x.TeamAssignedId,
-                        principalTable: "Team",
+                        principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Answer",
+                name: "Answers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -308,23 +329,66 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     QuestionId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserAnswerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Answer", x => x.Id);
+                    table.PrimaryKey("PK_Answers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Answer_Question_QuestionId",
+                        name: "FK_Answers_Questions_QuestionId",
                         column: x => x.QuestionId,
-                        principalTable: "Question",
+                        principalTable: "Questions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Answers_UserAnswer_UserAnswerId",
+                        column: x => x.UserAnswerId,
+                        principalTable: "UserAnswer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "b1580891-56ed-4db2-8aea-a8bebee68ecd", null, "Administrator", "Administrator" },
+                    { "ca18a0e8-2cde-48c1-a9b2-2a13a75389dc", null, "SuperUser", "SuperUser" },
+                    { "687bcabd-2ea9-46bf-b566-29a2c35e1bd6", null, "User", "User" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "Gender", "IsMarried", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "b5dbc387-eed6-42fb-b9d8-525094a171b0", 0, null, new DateTime(2022, 6, 29, 18, 34, 24, 141, DateTimeKind.Local).AddTicks(8789), "mi_correo@test.com", true, "Juan", null, true, "Ruiz", false, null, null, null, null, null, true, null, false, null });
+
+            migrationBuilder.InsertData(
+                table: "QuestionTypes",
+                columns: new[] { "Id", "CreatedAt", "DeletedAt", "Title", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(3949), null, "Select", null },
+                    { 2, new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(5464), null, "Checkbox", null },
+                    { 3, new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(5691), null, "Radio", null },
+                    { 4, new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(5760), null, "Input", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserProfile",
+                columns: new[] { "UserId", "Avatar", "CvLink", "EnglishLevel", "Id", "Nickname", "TechnicalKnowledg" },
+                values: new object[] { "b5dbc387-eed6-42fb-b9d8-525094a171b0", null, null, null, "14486bf4-abec-4e29-8a09-b9aae2ba376c", "juaaan", null });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Answer_QuestionId",
-                table: "Answer",
+                name: "IX_Answers_QuestionId",
+                table: "Answers",
                 column: "QuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Answers_UserAnswerId",
+                table: "Answers",
+                column: "UserAnswerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -366,13 +430,13 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Question_SurveyId",
-                table: "Question",
+                name: "IX_Questions_SurveyId",
+                table: "Questions",
                 column: "SurveyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Question_TypeId",
-                table: "Question",
+                name: "IX_Questions_TypeId",
+                table: "Questions",
                 column: "TypeId");
 
             migrationBuilder.CreateIndex(
@@ -391,17 +455,15 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 column: "UserResponsibleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserProfile_UserId",
-                table: "UserProfile",
-                column: "UserId",
-                unique: true,
-                filter: "[UserId] IS NOT NULL");
+                name: "IX_UserAnswer_UserId",
+                table: "UserAnswer",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Answer");
+                name: "Answers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -425,22 +487,25 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 name: "UserProfile");
 
             migrationBuilder.DropTable(
-                name: "Question");
+                name: "Questions");
+
+            migrationBuilder.DropTable(
+                name: "UserAnswer");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Team");
+                name: "Teams");
+
+            migrationBuilder.DropTable(
+                name: "QuestionTypes");
+
+            migrationBuilder.DropTable(
+                name: "Surveys");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "QuestionType");
-
-            migrationBuilder.DropTable(
-                name: "Survey");
         }
     }
 }

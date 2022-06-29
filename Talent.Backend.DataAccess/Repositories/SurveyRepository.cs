@@ -20,17 +20,17 @@ namespace Talent.Backend.DataAccessEF.Repositories
         public async Task<Survey> CreateAsync(Survey survey)
         {
             survey.CreatedAt = DateTime.Now;
-            await _context.Survey.AddAsync(survey);
+            await _context.Surveys.AddAsync(survey);
             await _context.SaveChangesAsync();
             return survey;
         }
 
         public async Task DeleteAsync(int id)
         {
-            var item = await _context.Survey.SingleAsync(s => s.Id == id);
+            var item = await _context.Surveys.SingleAsync(s => s.Id == id);
 
             item.DeletedAt = DateTime.Now;
-            _context.Survey.Update(item);
+            _context.Surveys.Update(item);
             _context.Entry(item).Property(x => x.Name).IsModified = false;
             _context.Entry(item).Property(x => x.CreatedAt).IsModified = false;
             _context.Entry(item).Property(x => x.UpdatedAt).IsModified = false;
@@ -44,7 +44,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
         }
 
         public async Task<bool> ExistAsync(int id) =>
-            await _context.Survey
+            await _context.Surveys
                 .Where(s => s.DeletedAt == null)
                 .AnyAsync(x => x.Id == id);
 
@@ -104,7 +104,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
 
         public async Task<Survey> GetAsync(int id)
         {
-            var item = await _context.Survey
+            var item = await _context.Surveys
                 .Where(s => s.DeletedAt == null)
                 .Include(q => q.Questions)
                     .ThenInclude(t => t.Type)
@@ -118,14 +118,14 @@ namespace Talent.Backend.DataAccessEF.Repositories
         }
 
         public async Task<int> GetTotalRecorsdAsync() =>
-            await _context.Survey
+            await _context.Surveys
                 .Where(s => s.DeletedAt == null)
                 .CountAsync();
 
         public async Task UpdateAsync(int id, Survey survey)
         {
             survey.UpdatedAt = DateTime.Now;
-            _context.Survey.Update(survey);
+            _context.Surveys.Update(survey);
             _context.Entry(survey).Property(x => x.CreatedAt).IsModified = false;
             await _context.SaveChangesAsync();
         }

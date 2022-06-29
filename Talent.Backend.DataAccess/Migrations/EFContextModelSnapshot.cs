@@ -44,6 +44,26 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b1580891-56ed-4db2-8aea-a8bebee68ecd",
+                            Name = "Administrator",
+                            NormalizedName = "Administrator"
+                        },
+                        new
+                        {
+                            Id = "ca18a0e8-2cde-48c1-a9b2-2a13a75389dc",
+                            Name = "SuperUser",
+                            NormalizedName = "SuperUser"
+                        },
+                        new
+                        {
+                            Id = "687bcabd-2ea9-46bf-b566-29a2c35e1bd6",
+                            Name = "User",
+                            NormalizedName = "User"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -184,7 +204,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
                     b.HasIndex("UserAnswerId");
 
-                    b.ToTable("Answer");
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Question", b =>
@@ -218,7 +238,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Question");
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.QuestionType", b =>
@@ -242,7 +262,33 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("QuestionType");
+                    b.ToTable("QuestionTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(3949),
+                            Title = "Select"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedAt = new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(5464),
+                            Title = "Checkbox"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedAt = new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(5691),
+                            Title = "Radio"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(5760),
+                            Title = "Input"
+                        });
                 });
 
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Survey", b =>
@@ -266,7 +312,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Survey");
+                    b.ToTable("Surveys");
                 });
 
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Team", b =>
@@ -290,7 +336,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Team");
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.TeamUser", b =>
@@ -351,7 +397,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -417,6 +463,22 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b5dbc387-eed6-42fb-b9d8-525094a171b0",
+                            AccessFailedCount = 0,
+                            CreatedAt = new DateTime(2022, 6, 29, 18, 34, 24, 141, DateTimeKind.Local).AddTicks(8789),
+                            Email = "mi_correo@test.com",
+                            EmailConfirmed = true,
+                            FirstName = "Juan",
+                            IsMarried = true,
+                            LastName = "Ruiz",
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = true,
+                            TwoFactorEnabled = false
+                        });
                 });
 
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.UserAnswer", b =>
@@ -426,8 +488,8 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AnswerId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AnswerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -440,39 +502,6 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserAnswer");
-                });
-
-            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.UserProfile", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Avatar")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CvLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EnglishLevel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nickname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TechnicalKnowledg")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.ToTable("UserProfile");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -585,6 +614,50 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.Navigation("UserResponsible");
                 });
 
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.User", b =>
+                {
+                    b.OwnsOne("Talent.Backend.DataAccessEF.Entities.UserProfile", "UserProfile", b1 =>
+                        {
+                            b1.Property<string>("UserId")
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.Property<string>("Avatar")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("CvLink")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("EnglishLevel")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Id")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Nickname")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("TechnicalKnowledg")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("UserId");
+
+                            b1.ToTable("UserProfile");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    UserId = "b5dbc387-eed6-42fb-b9d8-525094a171b0",
+                                    Id = "14486bf4-abec-4e29-8a09-b9aae2ba376c",
+                                    Nickname = "juaaan"
+                                });
+                        });
+
+                    b.Navigation("UserProfile");
+                });
+
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.UserAnswer", b =>
                 {
                     b.HasOne("Talent.Backend.DataAccessEF.Entities.User", "User")
@@ -592,13 +665,6 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.UserProfile", b =>
-                {
-                    b.HasOne("Talent.Backend.DataAccessEF.Entities.User", null)
-                        .WithOne("UserProfile")
-                        .HasForeignKey("Talent.Backend.DataAccessEF.Entities.UserProfile", "UserId");
                 });
 
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Question", b =>
@@ -619,8 +685,6 @@ namespace Talent.Backend.DataAccessEF.Migrations
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.User", b =>
                 {
                     b.Navigation("Teams");
-
-                    b.Navigation("UserProfile");
                 });
 
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.UserAnswer", b =>
