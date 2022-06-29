@@ -13,7 +13,7 @@ namespace Talent.Backend.DataAccessEF.Extensions
     {
         public static Message getMessage(string urlClient, Dictionary<string, string> dicParams)
         {
-            var callback = QueryHelpers.AddQueryString(urlClient="", dicParams);
+            var callback = QueryHelpers.AddQueryString(urlClient, dicParams);
             var message = new Message(new string[] { "cruzjart@gmail.com" }, "Email Confirmation token", callback, null);
             return message;
         }

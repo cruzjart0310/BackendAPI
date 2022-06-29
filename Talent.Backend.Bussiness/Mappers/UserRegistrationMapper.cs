@@ -18,7 +18,7 @@ namespace Talent.Backend.Bussiness.Mappers
             };
         }
 
-        public static Talent.Backend.Bussiness.Models.AccountResponse<Talent.Backend.Bussiness.Models.UserForRegistration> Map(AccountResponse<User> user, bool isFromDataAccess)
+        public static Talent.Backend.Bussiness.Models.AccountResponse<Talent.Backend.Bussiness.Models.UserForRegistration> Map(AccountResponse<User> user)
         {
             return new Talent.Backend.Bussiness.Models.AccountResponse<Talent.Backend.Bussiness.Models.UserForRegistration>
             {

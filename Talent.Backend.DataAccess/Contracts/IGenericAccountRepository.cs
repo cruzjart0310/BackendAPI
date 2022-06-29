@@ -15,7 +15,7 @@ namespace Talent.Backend.DataAccessEF.Contracts
 
         Task LogOutAsync();
 
-        Task<AccountResponse<T>> ForgotPasswordAsync(ForgotPassword entity);
+        Task<AccountResponse<T>> ForgotPasswordAsync(string email, string clientUrl);
 
         Task<AccountResponse<T>> ResetPasswordAsync(ResetPassword entity);
 

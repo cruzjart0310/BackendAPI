@@ -14,11 +14,11 @@ namespace Talent.Backend.Service.Contracts
 
         Task LogOutAsync();
 
-        Task ForgotPasswordAsync(T entity);
+        Task<AccountResponseDto<T>> ForgotPasswordAsync(string email);
 
         Task<bool> ResetPasswordAsync(T entity);
 
-        Task<T> EmailConfirmationAsync(string email, string token);
+        Task<AccountResponseDto<T>> EmailConfirmationAsync(string email, string token);
 
         Task<T> FindByNameAsync(string email);
 

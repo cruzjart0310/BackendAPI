@@ -20,12 +20,13 @@ namespace Talent.Backend.Service.Services
         {
             var userMap = UserForRegistrationMapper.Map(userDto);
             var userBussiness = await _accountBussiness.CreateAsync(userMap);
-            return UserForRegistrationMapper.Map(userBussiness, true);
+            return UserForRegistrationMapper.Map(userBussiness);
         }
 
-        public Task<UserForRegistrationDto> EmailConfirmationAsync(string email, string token)
+        public async Task<AccountResponseDto<UserForRegistrationDto>> EmailConfirmationAsync(string email, string token)
         {
-            throw new NotImplementedException();
+            var userBussiness = await _accountBussiness.EmailConfirmationAsync(email, token);
+            return UserForRegistrationMapper.Map(userBussiness);
         }
 
         public Task<UserForRegistrationDto> FindByNameAsync(string email)
@@ -33,9 +34,10 @@ namespace Talent.Backend.Service.Services
             throw new NotImplementedException();
         }
 
-        public Task ForgotPasswordAsync(UserForRegistrationDto entity)
+        public async Task<AccountResponseDto<UserForRegistrationDto>> ForgotPasswordAsync(string email)
         {
-            throw new NotImplementedException();
+            var userBussiness = await _accountBussiness.ForgotPasswordAsync(email);
+            return UserForRegistrationMapper.Map(userBussiness);
         }
 
         public Task<bool> IsEmailConfirmedAsync(UserForRegistrationDto entity)
@@ -50,9 +52,9 @@ namespace Talent.Backend.Service.Services
             return UserForAuthenticationMapper.Map(userLogin);
         }
 
-        public Task LogOutAsync()
+        public async Task LogOutAsync()
         {
-            throw new NotImplementedException();
+            await _accountBussiness.LogOutAsync();
         }
 
         public Task<bool> ResetPasswordAsync(UserForRegistrationDto entity)

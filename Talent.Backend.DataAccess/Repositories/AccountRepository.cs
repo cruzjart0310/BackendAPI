@@ -37,6 +37,10 @@ namespace Talent.Backend.DataAccessEF.Repositories
 
         public async Task<AccountResponse<User>> CreateAsync(User user)
         {
+            user.CreatedAt = DateTime.Now;   
+            user.UserProfile = new UserProfile();
+            user.UserProfile.Avatar = "avatar.png";
+            user.UserProfile.UserId = user.Id;
             var result = await _userManager.CreateAsync(user, user.PasswordHash);
             if (!result.Succeeded)
             {
@@ -48,13 +52,13 @@ namespace Talent.Backend.DataAccessEF.Repositories
             }
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            await _emailSender.SendEmailAsync(MailerConfig.getMessage(user.Url, new Dictionary<string, string>
+            await _emailSender.SendEmailAsync(MailerConfig.getMessage(user.Url= "https://localhost:44327/api/account/confirm", new Dictionary<string, string>
             {
                 {"token", token },
                 {"email", user.Email }
             }));
 
-            await _userManager.AddToRoleAsync(user, "Viewer");
+            await _userManager.AddToRoleAsync(user, "User");
 
             return new AccountResponse<User>
             {
@@ -77,7 +81,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
             }
 
             var confirmation = await _userManager.ConfirmEmailAsync(user, token);
-            if (confirmation.Succeeded)
+            if (!confirmation.Succeeded)
             {
                 return new AccountResponse<User>
                 {
@@ -97,9 +101,9 @@ namespace Talent.Backend.DataAccessEF.Repositories
         public async Task<User> FindByNameAsync(string email) =>
             await _userManager.FindByNameAsync(email);
 
-        public async Task<AccountResponse<User>> ForgotPasswordAsync(ForgotPassword entity)
+        public async Task<AccountResponse<User>> ForgotPasswordAsync(string email, string clientUrl)
         {
-            var user = await _userManager.FindByEmailAsync(entity.Email);
+            var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
                 return new AccountResponse<User>
                 {
@@ -110,7 +114,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
                 };
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            await _emailSender.SendEmailAsync(MailerConfig.getMessage(entity.ClientUri, entity.Email, new Dictionary<string, string>
+            await _emailSender.SendEmailAsync(MailerConfig.getMessage(clientUrl, email, new Dictionary<string, string>
             {
                 {"token", token },
                 {"email", user.Email }

@@ -22,6 +22,9 @@ namespace Talent.Backend.DataAccessEF.Repositories
         }
         public async Task<User> CreateAsync(User user)
         {
+            user.UserProfile = new UserProfile();
+            user.UserProfile.Avatar = "avatar.png";
+            user.UserProfile.UserId = user.Id;
             await _context.ApplicationUsers.AddAsync(user);
             await _context.SaveChangesAsync();
             return user;

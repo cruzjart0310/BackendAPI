@@ -55,18 +55,61 @@ namespace Talent.Backend.API.Controllers
             return Ok(result);
         }
 
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<ActionResult> PutSurvey(int id, SurveyDto surveyDto)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost("Confirm")]
+        public async Task<ActionResult> Confirm(string email, string token)
         {
-
-            return NoContent();
+            var result = await _accountService.EmailConfirmationAsync(email, token);
+            if (result.Errors != null && result.Errors.Any())
+            {
+                return BadRequest(new { result.Errors });
+            }
+            return Ok();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteSurvey(int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost("LogOut")]
+        public async Task<ActionResult> LogOut()
         {
-            return NoContent();
+            await _accountService.LogOutAsync();
+           
+            return Ok();
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost("ForgotPassword")]
+        public async Task<ActionResult> ForgotPassword(string email)
+        {
+            var result = await _accountService.ForgotPasswordAsync(email);
+            if (result.Errors != null && result.Errors.Any())
+            {
+                return BadRequest(new { result.Errors });
+            }
+            return Ok();
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost("ResetPassword")]
+        public async Task<ActionResult> ResetPassword(string email)
+        {
+            var result = await _accountService.ForgotPasswordAsync(email);
+            if (result.Errors != null && result.Errors.Any())
+            {
+                return BadRequest(new { result.Errors });
+            }
+            return Ok();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Talent.Backend.DataAccessEF.Entities
         public bool IsMarried { get; set; }
         public UserProfile UserProfile { get; set; }
         public IEnumerable<TeamUser> Teams { get; set; }
-        public DateTime CreateAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [NotMapped]
         public string Url { get; set; } 

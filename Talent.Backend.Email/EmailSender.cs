@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -42,9 +43,9 @@ namespace Talent.Backend.Email
             emailMessage.Subject = message.Subject;
 
             StringBuilder sb = new StringBuilder();
-            sb.Append($"<h1 style='color:black;>Welcome to the jungle</h1>");
-            sb.Append($"<h2 style='color:red;'>Hi {message.To[0]} this the token by confirmation Email</h2>");
-            sb.Append("<h2 style='color:red;'>{0}</h2>");
+
+            sb.AppendLine($"<h1 style='color:black;'>Welcome {message.To[0]}</h1>");
+            sb.AppendLine($"<h2>Confirm you account here <a href='{message.Content}'></a></h2>");
 
             var bodyBuilder = new BodyBuilder
             {
@@ -67,6 +68,8 @@ namespace Talent.Backend.Email
                     bodyBuilder.Attachments.Add(attachment.FileName, fileBytes, ContentType.Parse(attachment.ContentType));
                 }
             }
+
+            Debug.Write("bodyBuilder.ToMessageBody(): " + bodyBuilder.ToMessageBody());
 
             emailMessage.Body = bodyBuilder.ToMessageBody();
             return emailMessage;

@@ -19,7 +19,11 @@ namespace Talent.Backend.Bussiness.Mappers
                 IsMarried = user.IsMarried,
                 UserProfile = new DataAccessEF.Entities.UserProfile
                 {
-                    Id = new Guid(user.Id.ToString())
+                    Nickname = user.UserProfile.Nickname,
+                    Avatar = user.UserProfile.Avatar,
+                    EnglishLevel = user.UserProfile.EnglishLevel,
+                    CvLink = user.UserProfile.CvLink,   
+                    TechnicalKnowledg = user.UserProfile.TechnicalKnowledg,
                 },
                 Teams = user.Teams.Select(t => new TeamUser
                 {
@@ -56,7 +60,11 @@ namespace Talent.Backend.Bussiness.Mappers
                 IsMarried = user.IsMarried, 
                 UserProfile = new Models.UserProfile
                 {
-                    Id = user.Id.ToString()
+                    Nickname = user.UserProfile.Nickname,
+                    Avatar = user.UserProfile.Avatar,
+                    EnglishLevel = user.UserProfile.EnglishLevel,
+                    CvLink = user.UserProfile.CvLink,
+                    TechnicalKnowledg = user.UserProfile.TechnicalKnowledg,
                 },
                 Teams = user.Teams.Select(t => new Talent.Backend.Bussiness.Models.TeamUser
                 {
