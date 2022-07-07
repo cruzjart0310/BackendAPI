@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Talent.Backend.DataAccessEF;
 
 namespace Talent.Backend.DataAccessEF.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20220707161807_UpdateTableAnswer")]
+    partial class UpdateTableAnswer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,19 +50,19 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "48c139ce-6f89-4e45-bf08-54408f12e71c",
+                            Id = "386d297c-817e-49db-9ac8-816faeb4bc2e",
                             Name = "Administrator",
                             NormalizedName = "Administrator"
                         },
                         new
                         {
-                            Id = "a1d7aa5b-2343-4502-b8aa-02540df5acf9",
+                            Id = "382a9129-4071-42c6-8d4d-9f8a5fffcea0",
                             Name = "SuperUser",
                             NormalizedName = "SuperUser"
                         },
                         new
                         {
-                            Id = "00b8530d-2a51-414d-b74e-ba6c6a223072",
+                            Id = "29c8e09b-ba63-4dcc-87ea-1c2c13b107d6",
                             Name = "User",
                             NormalizedName = "User"
                         });
@@ -186,6 +188,9 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.Property<byte>("IsCorrect")
                         .HasColumnType("tinyint");
 
+                    b.Property<int>("Point")
+                        .HasColumnType("int");
+
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
@@ -263,25 +268,25 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 27, 23, 598, DateTimeKind.Local).AddTicks(3639),
+                            CreatedAt = new DateTime(2022, 7, 7, 11, 18, 6, 476, DateTimeKind.Local).AddTicks(8990),
                             Title = "Select"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 27, 23, 598, DateTimeKind.Local).AddTicks(4574),
+                            CreatedAt = new DateTime(2022, 7, 7, 11, 18, 6, 476, DateTimeKind.Local).AddTicks(9897),
                             Title = "Checkbox"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 27, 23, 598, DateTimeKind.Local).AddTicks(4596),
+                            CreatedAt = new DateTime(2022, 7, 7, 11, 18, 6, 476, DateTimeKind.Local).AddTicks(9922),
                             Title = "Radio"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 27, 23, 598, DateTimeKind.Local).AddTicks(4602),
+                            CreatedAt = new DateTime(2022, 7, 7, 11, 18, 6, 476, DateTimeKind.Local).AddTicks(9927),
                             Title = "Input"
                         });
                 });
@@ -464,7 +469,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         {
                             Id = "b5dbc387-eed6-42fb-b9d8-525094a171b0",
                             AccessFailedCount = 0,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 27, 23, 555, DateTimeKind.Local).AddTicks(9915),
+                            CreatedAt = new DateTime(2022, 7, 7, 11, 18, 6, 442, DateTimeKind.Local).AddTicks(6288),
                             Email = "mi_correo@test.com",
                             EmailConfirmed = true,
                             FirstName = "Juan",
@@ -639,7 +644,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                                 new
                                 {
                                     UserId = "b5dbc387-eed6-42fb-b9d8-525094a171b0",
-                                    Id = "2ae93bdf-2404-4707-8994-dc7050d79012",
+                                    Id = "ddb2c61c-a740-4fc2-98f2-dfcabceab08d",
                                     Nickname = "juaaan"
                                 });
                         });

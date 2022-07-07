@@ -28,7 +28,7 @@ namespace Talent.Backend.Bussiness.Mappers
                     {
                         Id = a.Id,
                         Title = a.Title,
-                        Point = a.Point,
+                        IsCorrect = a.IsCorrect,
                     }).ToList(),
                 }).ToList(),
                 CreatedAt = survey.CreatedAt,   
@@ -57,7 +57,7 @@ namespace Talent.Backend.Bussiness.Mappers
                     {
                         Id = a.Id,
                         Title = a.Title,
-                        Point = a.Point,
+                        IsCorrect = a.IsCorrect,
                     }).ToList()
                 }).ToList(),
                 CreatedAt = survey.CreatedAt,

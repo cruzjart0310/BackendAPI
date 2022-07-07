@@ -11,7 +11,7 @@ namespace Talent.Backend.DataAccessEF.Entities
     {
         public int? Id { get; set; }
         public string Title { get; set; }
-        public int Point { get; set; }
+        public byte IsCorrect { get; set; }
 
         [ForeignKey("QuestionFK")]
         public int QuestionId { get; set; }

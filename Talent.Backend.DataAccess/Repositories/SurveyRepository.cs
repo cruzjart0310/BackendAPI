@@ -85,7 +85,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
                         {
                             Id = a.Id,  
                             Title = a.Title,
-                            Point = a.Point,
+                            IsCorrect = a.IsCorrect,
                             CreatedAt = a.CreatedAt,
                         }),
                         CreatedAt = q.CreatedAt,
