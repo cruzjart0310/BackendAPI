@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Talent.Backend.API.Extensions;
@@ -14,12 +16,15 @@ namespace Talent.Backend.API.Controllers
     public class QuestionController : ControllerBase
     {
         private readonly IUriService _uriService;
+        private readonly IManageAzureStorage _manageAzureStorage;
         private readonly IQuestionService _questionService;
+        private readonly string container = "talent";
 
-        public QuestionController(IQuestionService questionService, IUriService uriService)
+        public QuestionController(IQuestionService questionService, IUriService uriService, IManageAzureStorage manageAzureStorage)
         {
             _questionService = questionService;
-            _uriService = uriService;   
+            _uriService = uriService;
+            _manageAzureStorage = manageAzureStorage;
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -35,6 +40,59 @@ namespace Talent.Backend.API.Controllers
             var response = PaginationHelper.CreateResponse<QuestionDto>(questions.AsQueryable(), paginationDto, totalRecorsd, _uriService, route);
             return Ok(response);
 
+        }
+
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpPost("UploadFile")]
+        public async Task<ActionResult> UploadFile([FromForm] IFormFile file)
+        {
+            try {
+
+                if (file != null)
+                {
+                    await _manageAzureStorage.SaveFile(container, file);
+                    //string path = "";
+                    //if (!Directory.Exists(path))
+                    //{
+                    //    Directory.CreateDirectory(path);
+                    //}
+                }
+          
+                    string name = file.FileName.Replace(@"\\\\", @"\\");
+                    if (file.Length > 0)
+                    {
+                        var memoryStream = new MemoryStream();
+                        try
+                        {
+                            await file.CopyToAsync(memoryStream);
+                            // Upload check if less than 2mb!
+                            if (memoryStream.Length < 2097152)
+                            {
+
+                            }
+                            else
+                            {
+                               
+                            }
+                        }
+                        finally
+                        {
+                            memoryStream.Close();
+                            memoryStream.Dispose();
+                        }
+                    }
+                
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return Ok();
         }
 
         [ProducesResponseType(StatusCodes.Status201Created)]
