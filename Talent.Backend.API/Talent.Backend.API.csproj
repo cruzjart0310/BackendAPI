@@ -2,13 +2,28 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <ApplicationInsightsResourceId>/subscriptions/08fdf46e-dfaf-4ffc-93d1-ef0aa2a13216/resourceGroups/api-talent/providers/microsoft.insights/components/TalentBackendAPI</ApplicationInsightsResourceId>
+    <UserSecretsId>036769da-8921-407e-a75a-7e60753e4542</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.13.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.17.1" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.5" />
+    <PackageReference Include="SpreadsheetLight" Version="3.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
@@ -16,6 +31,11 @@
     <ProjectReference Include="..\Talent.Backend.Bussiness\Talent.Backend.Bussiness.csproj" />
     <ProjectReference Include="..\Talent.Backend.DataAccess\Talent.Backend.DataAccessEF.csproj" />
     <ProjectReference Include="..\Talent.Backend.Service\Talent.Backend.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\talent\" />
   </ItemGroup>
 
 </Project>

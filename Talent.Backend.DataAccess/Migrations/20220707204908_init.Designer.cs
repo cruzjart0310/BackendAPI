@@ -10,8 +10,8 @@ using Talent.Backend.DataAccessEF;
 namespace Talent.Backend.DataAccessEF.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20220707161124_ColunAddTableAnswer")]
-    partial class ColunAddTableAnswer
+    [Migration("20220707204908_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,19 +50,19 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6eeddfbb-8d48-407d-b2fd-fedd123e138d",
+                            Id = "e5c89e90-65cb-4b61-a3bb-61fd29b65482",
                             Name = "Administrator",
                             NormalizedName = "Administrator"
                         },
                         new
                         {
-                            Id = "bb9802cd-c060-4aff-ab12-d1883ce0472d",
+                            Id = "aafe83dd-45ee-49a3-b1ce-d8d7c829d7b5",
                             Name = "SuperUser",
                             NormalizedName = "SuperUser"
                         },
                         new
                         {
-                            Id = "ca8a9422-e5ac-4e17-ae5b-22eeadb3af7c",
+                            Id = "9a8de072-fc91-4091-b28d-176c70208792",
                             Name = "User",
                             NormalizedName = "User"
                         });
@@ -188,9 +188,6 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.Property<byte>("IsCorrect")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("Point")
-                        .HasColumnType("int");
-
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
@@ -273,25 +270,25 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 11, 23, 537, DateTimeKind.Local).AddTicks(5916),
+                            CreatedAt = new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(7476),
                             Title = "Select"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 11, 23, 537, DateTimeKind.Local).AddTicks(7908),
+                            CreatedAt = new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(8103),
                             Title = "Checkbox"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 11, 23, 537, DateTimeKind.Local).AddTicks(7935),
+                            CreatedAt = new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(8119),
                             Title = "Radio"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 11, 23, 537, DateTimeKind.Local).AddTicks(7942),
+                            CreatedAt = new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(8123),
                             Title = "Input"
                         });
                 });
@@ -474,7 +471,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         {
                             Id = "b5dbc387-eed6-42fb-b9d8-525094a171b0",
                             AccessFailedCount = 0,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 11, 23, 494, DateTimeKind.Local).AddTicks(6247),
+                            CreatedAt = new DateTime(2022, 7, 7, 15, 49, 7, 550, DateTimeKind.Local).AddTicks(8402),
                             Email = "mi_correo@test.com",
                             EmailConfirmed = true,
                             FirstName = "Juan",
@@ -655,7 +652,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                                 new
                                 {
                                     UserId = "b5dbc387-eed6-42fb-b9d8-525094a171b0",
-                                    Id = "39c210b1-97db-41ec-857b-78a437bd1737",
+                                    Id = "55ba9f68-e158-41ed-bf88-46b437897273",
                                     Nickname = "juaaan"
                                 });
                         });

@@ -155,6 +155,7 @@ namespace Talent.Backend.API
             //ConfigureBackendBussines(services);
             //ConfigureBackendService(services);
             DependencyInjectionRegister.AddRegistration(services);
+            services.AddApplicationInsightsTelemetry(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
         }
 
         /// <summary>
@@ -188,6 +189,8 @@ namespace Talent.Backend.API
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseCors();
@@ -199,7 +202,7 @@ namespace Talent.Backend.API
                 errorApp.Run(async context =>
                 {
                     var ex = context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
-                    var responseModel = ResponseDto<string>.Fail(ex.Message, ex.StackTrace);
+                    var responseModel = ResponseDto<string>.Fail(ex.Message, ex.InnerException.ToString());
 
                     context.Response.ContentType = "application/json";
                     responseModel.Title = "One or more errors occurred.";
@@ -231,6 +234,7 @@ namespace Talent.Backend.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapHealthChecks("/health");
             });
         }
     }

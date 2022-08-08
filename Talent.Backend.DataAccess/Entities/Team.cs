@@ -11,7 +11,9 @@ namespace Talent.Backend.DataAccessEF.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         //[NotMapped]
-        public ICollection<TeamUser> Users { get; set; }
+
+        //Todo:verify if this work
+        public IEnumerable<TeamUser> Users { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }

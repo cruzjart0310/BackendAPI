@@ -22,7 +22,7 @@ namespace Talent.Backend.Bussiness.Mappers
                     Id = userAnswer.User.Id,
                     FirstName = userAnswer.User.FirstName
                 },
-                Answer = userAnswer?.Answer?.Select(u => new Answer
+                Answers = userAnswer?.Answer?.Select(u => new Answer
                 {
                     Id = u.Id,
                     Title = u.Title
@@ -44,7 +44,7 @@ namespace Talent.Backend.Bussiness.Mappers
                     Id = userAnswer.User.Id,
                     FirstName = userAnswer.User.FirstName
                 },
-                Answer = userAnswer?.Answer?.Select(u => new Talent.Backend.Bussiness.Models.Answer
+                Answer = userAnswer?.Answers?.Select(u => new Talent.Backend.Bussiness.Models.Answer
                 {
                     Id = u.Id,
                     Title = u.Title

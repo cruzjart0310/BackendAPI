@@ -19,23 +19,30 @@ namespace Talent.Backend.Bussiness
 
         public async Task<UserAnswer> CreateAsync(UserAnswer userAnswer)
         {
-            var userAnwerMap = UserAnswerMapper.Map(userAnswer); 
+            var userAnwerMap = UserAnswerMapper.Map(userAnswer);
             var surveyRepository = await _userAnswerRepository.CreateAsync(userAnwerMap);
             return UserAnswerMapper.Map(surveyRepository);
         }
 
         public async Task DeleteAsync(int id)
         {
-            await _userAnswerRepository.DeleteAsync(id);    
+            await _userAnswerRepository.DeleteAsync(id);
         }
 
-        public async Task<bool> ExistAsync(int id) => await _userAnswerRepository.ExistAsync(id);   
+        public async Task<bool> ExistAsync(int id) => await _userAnswerRepository.ExistAsync(id);
 
         public async Task<IEnumerable<UserAnswer>> GetAllAsync(Pagination pagination)
         {
             var userAnswer = await _userAnswerRepository.GetAllAsync(PaginationMapper.Map(pagination));
 
             return userAnswer.Select(UserAnswerMapper.Map);
+        }
+
+        public async Task<UserPointResponse<User>> GetPointsAsync(string userId, int surveyId)
+        {
+            var mapper = await _userAnswerRepository.GetPointsAsync(userId, surveyId);  
+
+            return UserPointMapper.Map(mapper);
         }
 
         public async Task<UserAnswer> GetAsync(int id)

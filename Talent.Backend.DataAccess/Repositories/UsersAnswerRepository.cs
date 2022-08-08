@@ -19,7 +19,9 @@ namespace Talent.Backend.DataAccessEF.Repositories
         }
         public async Task<UserAnswer> CreateAsync(UserAnswer userAnswer)
         {
-            foreach (var item in userAnswer.Answer)
+            if (userAnswer == null) return null;
+
+            foreach (var item in userAnswer.Answers)
             {
                 var answer = new UserAnswer
                 {
@@ -51,7 +53,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
         {
 
             var query = await _context.Set<UserAnswer>()
-                .Include(x => x.Answer)
+                .Include(x => x.Answers)
                     .ThenInclude(x => x.Question)
                         .ThenInclude(x => x.Survey)
                 .OrderBy(x => x.Id)
@@ -64,15 +66,48 @@ namespace Talent.Backend.DataAccessEF.Repositories
             return query;
         }
 
+        public async Task<UserPointResponse<User>> GetPointsAsync(string userId, int surveyId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            double percentage = 100.0;
+            int totalQuestions = await _context.Questions
+                .Include(x => x.Survey)
+                .Where(x => x.SurveyId == surveyId)
+                .CountAsync();
+
+            int totalCorrectAnswers = await (from ua in _context.UserAnswer
+                join a in _context.Answers on ua.AnswerId equals a.Id
+                join q in _context.Questions on a.QuestionId equals q.Id
+                where q.SurveyId == surveyId
+                where a.IsCorrect == 1
+                where ua.UserId == userId
+                select new {Id = a.Id})
+                .CountAsync();
+
+            double questionValue = (percentage / totalQuestions) * 1.0;
+            double totalPoint = (totalCorrectAnswers * questionValue);
+
+            return new UserPointResponse<User>
+            {
+                Element = user,
+                Points = totalPoint
+            };
+        }
+
         public async Task<UserAnswer> GetAsync(int id)
         {
             var item = await _context.UserAnswer
-                .Include(x => x.Answer)
+                .Include(x => x.Answers)
                     .ThenInclude(x => x.Question)
                         .ThenInclude(x => x.Survey)
                 .AsNoTracking()
                 //.FirstAsync(x => x.Id == Convert.ToInt32(id)); //GetException
                 .SingleOrDefaultAsync(x => x.Id == id);
+
+            var totalQuestions = await _context.Surveys
+                .Include(x => x.Questions.Where(x => x.SurveyId == 1))
+                .CountAsync();
 
             return item;
         }

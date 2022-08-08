@@ -7,8 +7,8 @@ using Talent.Backend.Service.Dtos;
 
 namespace Talent.Backend.Service.Contracts
 {
-    public interface IUserAnswerService : IGenericService<UserAnswerDto>, IUserPoint
+    public interface IUserPoint
     {
-
+        Task<UserPointResponseDto<UserDto>> GetPointsAsync(string userId, int surveyId);
     }
 }

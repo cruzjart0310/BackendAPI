@@ -16,10 +16,12 @@ namespace Talent.Backend.API.Controllers
     public class UserAnswersController : ControllerBase
     {
         private readonly IUserAnswerService _userAnswerService;
+        private readonly IUserService _userService;
         private readonly IUriService _uriService;
-        public UserAnswersController(IUserAnswerService userAnswerService, IUriService uriService)
+        public UserAnswersController(IUserAnswerService userAnswerService, IUserService userService, IUriService uriService)
         {
             _userAnswerService = userAnswerService;
+            _userService = userService; 
             _uriService = uriService;
         }
 
@@ -47,6 +49,18 @@ namespace Talent.Backend.API.Controllers
             var userAnswers = await _userAnswerService.CreateAsync(userAnswerDto);
 
             return Ok(new ResponseDto<UserAnswerDto>(userAnswers));
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("{userId}/survey/{surveyId}")]
+        public async Task<ActionResult> GetPoints(string userId, int surveyId)
+        {
+            var data = await _userAnswerService.GetPointsAsync(userId, surveyId);
+
+            return Ok(data);
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]

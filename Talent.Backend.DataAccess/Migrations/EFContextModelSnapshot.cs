@@ -48,19 +48,19 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "48c139ce-6f89-4e45-bf08-54408f12e71c",
+                            Id = "e5c89e90-65cb-4b61-a3bb-61fd29b65482",
                             Name = "Administrator",
                             NormalizedName = "Administrator"
                         },
                         new
                         {
-                            Id = "a1d7aa5b-2343-4502-b8aa-02540df5acf9",
+                            Id = "aafe83dd-45ee-49a3-b1ce-d8d7c829d7b5",
                             Name = "SuperUser",
                             NormalizedName = "SuperUser"
                         },
                         new
                         {
-                            Id = "00b8530d-2a51-414d-b74e-ba6c6a223072",
+                            Id = "9a8de072-fc91-4091-b28d-176c70208792",
                             Name = "User",
                             NormalizedName = "User"
                         });
@@ -195,9 +195,14 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("UserAnswerId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
+
+                    b.HasIndex("UserAnswerId");
 
                     b.ToTable("Answers");
                 });
@@ -263,25 +268,25 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 27, 23, 598, DateTimeKind.Local).AddTicks(3639),
+                            CreatedAt = new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(7476),
                             Title = "Select"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 27, 23, 598, DateTimeKind.Local).AddTicks(4574),
+                            CreatedAt = new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(8103),
                             Title = "Checkbox"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 27, 23, 598, DateTimeKind.Local).AddTicks(4596),
+                            CreatedAt = new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(8119),
                             Title = "Radio"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 27, 23, 598, DateTimeKind.Local).AddTicks(4602),
+                            CreatedAt = new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(8123),
                             Title = "Input"
                         });
                 });
@@ -464,7 +469,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         {
                             Id = "b5dbc387-eed6-42fb-b9d8-525094a171b0",
                             AccessFailedCount = 0,
-                            CreatedAt = new DateTime(2022, 7, 7, 11, 27, 23, 555, DateTimeKind.Local).AddTicks(9915),
+                            CreatedAt = new DateTime(2022, 7, 7, 15, 49, 7, 550, DateTimeKind.Local).AddTicks(8402),
                             Email = "mi_correo@test.com",
                             EmailConfirmed = true,
                             FirstName = "Juan",
@@ -490,9 +495,11 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserAnswer");
                 });
@@ -555,6 +562,10 @@ namespace Talent.Backend.DataAccessEF.Migrations
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.UserAnswer", null)
+                        .WithMany("Answer")
+                        .HasForeignKey("UserAnswerId");
 
                     b.Navigation("Question");
                 });
@@ -639,12 +650,21 @@ namespace Talent.Backend.DataAccessEF.Migrations
                                 new
                                 {
                                     UserId = "b5dbc387-eed6-42fb-b9d8-525094a171b0",
-                                    Id = "2ae93bdf-2404-4707-8994-dc7050d79012",
+                                    Id = "55ba9f68-e158-41ed-bf88-46b437897273",
                                     Nickname = "juaaan"
                                 });
                         });
 
                     b.Navigation("UserProfile");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.UserAnswer", b =>
+                {
+                    b.HasOne("Talent.Backend.DataAccessEF.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.Question", b =>
@@ -665,6 +685,11 @@ namespace Talent.Backend.DataAccessEF.Migrations
             modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.User", b =>
                 {
                     b.Navigation("Teams");
+                });
+
+            modelBuilder.Entity("Talent.Backend.DataAccessEF.Entities.UserAnswer", b =>
+                {
+                    b.Navigation("Answer");
                 });
 #pragma warning restore 612, 618
         }

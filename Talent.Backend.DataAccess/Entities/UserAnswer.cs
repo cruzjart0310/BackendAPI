@@ -13,14 +13,14 @@ namespace Talent.Backend.DataAccessEF.Entities
         [ForeignKey("UserId")]
         public string UserId { get; set; }
 
-        [NotMapped]
+        //[NotMapped]
         public User User { get; set; }
 
         [ForeignKey("AnswerId")]
         public int AnswerId { get; set; }
 
-        [NotMapped]
-        public IEnumerable<Answer> Answer { get; set; }
+        //[NotMapped]
+        public IEnumerable<Answer> Answers { get; set; }
         public DateTime CreatedAt { get; set; } 
     }
 }

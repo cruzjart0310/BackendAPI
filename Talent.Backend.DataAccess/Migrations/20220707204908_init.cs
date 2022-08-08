@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Talent.Backend.DataAccessEF.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -325,7 +325,7 @@ namespace Talent.Backend.DataAccessEF.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Point = table.Column<int>(type: "int", nullable: false),
+                    IsCorrect = table.Column<byte>(type: "tinyint", nullable: false),
                     QuestionId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -354,31 +354,31 @@ namespace Talent.Backend.DataAccessEF.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "b1580891-56ed-4db2-8aea-a8bebee68ecd", null, "Administrator", "Administrator" },
-                    { "ca18a0e8-2cde-48c1-a9b2-2a13a75389dc", null, "SuperUser", "SuperUser" },
-                    { "687bcabd-2ea9-46bf-b566-29a2c35e1bd6", null, "User", "User" }
+                    { "e5c89e90-65cb-4b61-a3bb-61fd29b65482", null, "Administrator", "Administrator" },
+                    { "aafe83dd-45ee-49a3-b1ce-d8d7c829d7b5", null, "SuperUser", "SuperUser" },
+                    { "9a8de072-fc91-4091-b28d-176c70208792", null, "User", "User" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedAt", "Email", "EmailConfirmed", "FirstName", "Gender", "IsMarried", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "b5dbc387-eed6-42fb-b9d8-525094a171b0", 0, null, new DateTime(2022, 6, 29, 18, 34, 24, 141, DateTimeKind.Local).AddTicks(8789), "mi_correo@test.com", true, "Juan", null, true, "Ruiz", false, null, null, null, null, null, true, null, false, null });
+                values: new object[] { "b5dbc387-eed6-42fb-b9d8-525094a171b0", 0, null, new DateTime(2022, 7, 7, 15, 49, 7, 550, DateTimeKind.Local).AddTicks(8402), "mi_correo@test.com", true, "Juan", null, true, "Ruiz", false, null, null, null, null, null, true, null, false, null });
 
             migrationBuilder.InsertData(
                 table: "QuestionTypes",
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "Title", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(3949), null, "Select", null },
-                    { 2, new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(5464), null, "Checkbox", null },
-                    { 3, new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(5691), null, "Radio", null },
-                    { 4, new DateTime(2022, 6, 29, 18, 34, 24, 172, DateTimeKind.Local).AddTicks(5760), null, "Input", null }
+                    { 1, new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(7476), null, "Select", null },
+                    { 2, new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(8103), null, "Checkbox", null },
+                    { 3, new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(8119), null, "Radio", null },
+                    { 4, new DateTime(2022, 7, 7, 15, 49, 7, 573, DateTimeKind.Local).AddTicks(8123), null, "Input", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "UserProfile",
                 columns: new[] { "UserId", "Avatar", "CvLink", "EnglishLevel", "Id", "Nickname", "TechnicalKnowledg" },
-                values: new object[] { "b5dbc387-eed6-42fb-b9d8-525094a171b0", null, null, null, "14486bf4-abec-4e29-8a09-b9aae2ba376c", "juaaan", null });
+                values: new object[] { "b5dbc387-eed6-42fb-b9d8-525094a171b0", null, null, null, "55ba9f68-e158-41ed-bf88-46b437897273", "juaaan", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_QuestionId",

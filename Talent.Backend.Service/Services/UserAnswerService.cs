@@ -15,7 +15,7 @@ namespace Talent.Backend.Service.Services
 
         public UserAnswerService(IUserAnswerBussiness userAnswerBussiness)
         {
-            _userAnswerBussiness = userAnswerBussiness; 
+            _userAnswerBussiness = userAnswerBussiness;
         }
 
         public async Task<UserAnswerDto> CreateAsync(UserAnswerDto userAnswerDto)
@@ -39,9 +39,16 @@ namespace Talent.Backend.Service.Services
             return surveys.Select(UserAnswerMapper.Map);
         }
 
+        public async Task<UserPointResponseDto<UserDto>> GetPointsAsync(string userId, int surveyId)
+        {
+            var mapper =  await _userAnswerBussiness.GetPointsAsync(userId, surveyId);
+
+            return UserPointMapper.Map(mapper);
+        }
+
         public async Task<UserAnswerDto> GetAsync(int id)
         {
-            var userAnswer =  await _userAnswerBussiness.GetAsync(id);
+            var userAnswer = await _userAnswerBussiness.GetAsync(id);
             return UserAnswerMapper.Map(userAnswer);
         }
 
@@ -53,7 +60,7 @@ namespace Talent.Backend.Service.Services
         public async Task UpdateAsync(int id, UserAnswerDto surveyDto)
         {
             var userAnswerMap = UserAnswerMapper.Map(surveyDto); ;
-            await _userAnswerBussiness.UpdateAsync(id, userAnswerMap);   
+            await _userAnswerBussiness.UpdateAsync(id, userAnswerMap);
         }
     }
 }
