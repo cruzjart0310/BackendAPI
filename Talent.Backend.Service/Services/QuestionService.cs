@@ -6,6 +6,7 @@ using Talent.Backend.Bussiness.Contracts;
 using Talent.Backend.Service.Mappers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace Talent.Backend.Service.Services
 {
@@ -55,6 +56,11 @@ namespace Talent.Backend.Service.Services
         public async Task<int> GetTotalRecorsdAsync()
         {
             return await _questionBussiness.GetTotalRecorsdAsync();
+        }
+
+        public async Task SaveDataFromFile(IFormFile file)
+        {
+            await _questionBussiness.SaveDataFromFile(file);
         }
 
         public Task UpdateAsync(int id, QuestionDto questionDto)

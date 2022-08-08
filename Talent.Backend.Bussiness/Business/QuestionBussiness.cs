@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,6 +61,11 @@ namespace Talent.Backend.Bussiness
         public async Task<int> GetTotalRecorsdAsync()
         {
             return await _questionRepository.GetTotalRecorsdAsync();
+        }
+
+        public async Task SaveDataFromFile(IFormFile file)
+        {
+            await _questionRepository.SaveDataFromFile(file);
         }
 
         public Task UpdateAsync(int id, Question Question)

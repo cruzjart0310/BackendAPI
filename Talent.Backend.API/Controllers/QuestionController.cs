@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SpreadsheetLight;
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
+using System.Text;
 using System.Threading.Tasks;
 using Talent.Backend.API.Extensions;
 using Talent.Backend.API.Helpers;
@@ -32,7 +37,7 @@ namespace Talent.Backend.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
-        public async Task<ActionResult<QuestionDto>> Index([FromQuery]  PaginationDto paginationDto)
+        public async Task<ActionResult<QuestionDto>> Index([FromQuery] PaginationDto paginationDto)
         {
             var route = Request.Path.Value;
             var questions = await _questionService.GetAllAsync(paginationDto);
@@ -49,48 +54,13 @@ namespace Talent.Backend.API.Controllers
         [HttpPost("UploadFile")]
         public async Task<ActionResult> UploadFile([FromForm] IFormFile file)
         {
-            try {
-
-                if (file != null)
-                {
-                    await _manageAzureStorage.SaveFile(container, file);
-                    //string path = "";
-                    //if (!Directory.Exists(path))
-                    //{
-                    //    Directory.CreateDirectory(path);
-                    //}
-                }
-          
-                    string name = file.FileName.Replace(@"\\\\", @"\\");
-                    if (file.Length > 0)
-                    {
-                        var memoryStream = new MemoryStream();
-                        try
-                        {
-                            await file.CopyToAsync(memoryStream);
-                            // Upload check if less than 2mb!
-                            if (memoryStream.Length < 2097152)
-                            {
-
-                            }
-                            else
-                            {
-                               
-                            }
-                        }
-                        finally
-                        {
-                            memoryStream.Close();
-                            memoryStream.Dispose();
-                        }
-                    }
-                
-                return null;
-            }
-            catch (Exception ex)
+            if(file == null)
             {
-                return null;
+                return BadRequest();
             }
+
+            await _questionService.SaveDataFromFile(file);
+            await _manageAzureStorage.SaveFile(container, file);
 
             return Ok();
         }

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Talent.Backend.Authentication.TokenGeneration;
 using Microsoft.Extensions.Configuration;
 using Talent.Backend.DataAccessEF.Entities;
+using Talent.Backend.API.Helpers;
 
 namespace Talent.Backend.API
 {
@@ -28,6 +29,7 @@ namespace Talent.Backend.API
 
         private static void AddRegistrationServices(IServiceCollection services)
         {
+            services.AddTransient<IManageAzureStorage, ManageLocalStorage>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ISurveyService, SurveyService>();
             services.AddTransient<IQuestionService, QuestionService>();
@@ -37,7 +39,7 @@ namespace Talent.Backend.API
             services.AddTransient<IAccountService, AccountService>();
 
             services.AddHttpContextAccessor();
-            services.AddSingleton<IUriService>(o =>
+            services.AddTransient<IUriService>(o =>
             {
                 var accesor = o.GetService<IHttpContextAccessor>();
                 var request = accesor.HttpContext.Request;

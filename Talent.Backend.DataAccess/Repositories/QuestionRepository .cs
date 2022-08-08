@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SpreadsheetLight;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Talent.Backend.DataAccessEF.Contracts;
 using Talent.Backend.DataAccessEF.Entities;
-using Talent.Backend.DataAccessEF.Extensions;
 using Talent.Backend.DataAccessEF.Models;
 
 namespace Talent.Backend.DataAccessEF.Repositories
@@ -63,6 +63,46 @@ namespace Talent.Backend.DataAccessEF.Repositories
         public async Task<int> GetTotalRecorsdAsync()
         {
             return await _context.Questions.CountAsync();
+        }
+
+        public async Task SaveDataFromFile(IFormFile file)
+        {
+            IList<Question> collection = new List<Question>();
+            if (file != null)
+            {
+                Stream stream = file.OpenReadStream();
+                using (SLDocument document = new SLDocument(stream, "Hoja1"))
+                {
+                    int row = 2;
+                    while (!string.IsNullOrEmpty(document.GetCellValueAsString(row, 1)))
+                    {
+                        Question question = new Question()
+                        {
+                            Type = null,
+                            Survey = null,
+                            Title = document.GetCellValueAsString(row, 2),
+                            TypeId = document.GetCellValueAsInt32(row, 3),
+                            SurveyId = document.GetCellValueAsInt32(row, 4),
+                            CreatedAt = DateTime.Now,
+                        };
+                        collection.Add(question);
+                        row++;
+                    }
+                }
+            }
+
+            await _context.Questions.AddRangeAsync(collection);
+            await _context.SaveChangesAsync();
+            await Task.CompletedTask;
+        }
+
+
+        public IEnumerable<Question> GetItemFromList(IEnumerable<Question> questions)
+        {
+            foreach (var q in questions)
+            {
+                yield return q;
+            }
         }
 
         public Task UpdateAsync(int id, Question question)
