@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.UnitTest.Stubs
@@ -13,7 +9,7 @@ namespace Talent.Backend.UnitTest.Stubs
         {
             Id = new Guid().ToString(),
             FirstName = "Tom",
-            LastName =  "Raider",
+            LastName = "Raider",
             Email = "tomraider@test.com"
         };
     }

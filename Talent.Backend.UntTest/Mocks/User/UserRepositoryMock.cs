@@ -1,10 +1,4 @@
 ﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Talent.Backend.DataAccessEF.Entities;
 using Talent.Backend.DataAccessEF.Contracts;
 
 namespace Talent.Backend.UnitTest.Mocks.User

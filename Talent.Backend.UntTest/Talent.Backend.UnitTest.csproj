@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.7.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.10" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="Moq" Version="4.17.2" />
     <PackageReference Include="NUnit" Version="3.13.1" />
@@ -15,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Talent.Backend.API\Talent.Backend.API.csproj" />
     <ProjectReference Include="..\Talent.Backend.Bussiness\Talent.Backend.Bussiness.csproj" />
     <ProjectReference Include="..\Talent.Backend.DataAccess\Talent.Backend.DataAccessEF.csproj" />
     <ProjectReference Include="..\Talent.Backend.Service\Talent.Backend.Service.csproj" />
