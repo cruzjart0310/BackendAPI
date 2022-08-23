@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MailKit.Net.Smtp;
+using MimeKit;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MailKit.Net.Smtp;
-using MimeKit;
 using Talent.Backend.Email.Contracts;
 using Talent.Backend.Email.Models;
 

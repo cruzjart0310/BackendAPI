@@ -23,7 +23,7 @@ namespace Talent.Backend.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
-        public async Task<ActionResult<QuestionTypeDto>> Index([FromQuery]  PaginationDto paginationDto)
+        public async Task<ActionResult<QuestionTypeDto>> Index([FromQuery] PaginationDto paginationDto)
         {
             var types = await _questionTypeService.GetAllAsync(paginationDto);
             var queryable = types.AsQueryable();
@@ -52,7 +52,7 @@ namespace Talent.Backend.API.Controllers
                 return NotFound();
 
             await _questionTypeService
-                .UpdateAsync(id, questionTypeDto);
+                .UpdateAsync(questionTypeDto);
 
             return NoContent();
         }

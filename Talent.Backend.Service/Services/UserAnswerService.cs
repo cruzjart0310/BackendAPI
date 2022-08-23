@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Talent.Backend.Bussiness.Contracts;
-using Talent.Backend.Service.Mappers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
+using Talent.Backend.Service.Mappers;
 
 namespace Talent.Backend.Service.Services
 {
@@ -41,7 +40,7 @@ namespace Talent.Backend.Service.Services
 
         public async Task<UserPointResponseDto<UserDto>> GetPointsAsync(string userId, int surveyId)
         {
-            var mapper =  await _userAnswerBussiness.GetPointsAsync(userId, surveyId);
+            var mapper = await _userAnswerBussiness.GetPointsAsync(userId, surveyId);
 
             return UserPointMapper.Map(mapper);
         }
@@ -57,10 +56,10 @@ namespace Talent.Backend.Service.Services
             return _userAnswerBussiness.GetTotalRecorsdAsync();
         }
 
-        public async Task UpdateAsync(int id, UserAnswerDto surveyDto)
+        public async Task UpdateAsync(UserAnswerDto surveyDto)
         {
             var userAnswerMap = UserAnswerMapper.Map(surveyDto); ;
-            await _userAnswerBussiness.UpdateAsync(id, userAnswerMap);
+            await _userAnswerBussiness.UpdateAsync(userAnswerMap);
         }
     }
 }

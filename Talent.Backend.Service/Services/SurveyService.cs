@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Talent.Backend.Bussiness.Contracts;
-using Talent.Backend.Service.Mappers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
+using Talent.Backend.Service.Mappers;
 
 namespace Talent.Backend.Service.Services
 {
@@ -15,7 +14,7 @@ namespace Talent.Backend.Service.Services
 
         public SurveyService(ISurveyBussiness surveyBussiness)
         {
-            _surveyBussiness = surveyBussiness; 
+            _surveyBussiness = surveyBussiness;
         }
 
         public async Task<SurveyDto> CreateAsync(SurveyDto surveyDto)
@@ -41,7 +40,7 @@ namespace Talent.Backend.Service.Services
 
         public async Task<SurveyDto> GetAsync(int id)
         {
-            var survey =  await _surveyBussiness.GetAsync(id);
+            var survey = await _surveyBussiness.GetAsync(id);
             return SurveyMapper.Map(survey);
         }
 
@@ -50,10 +49,10 @@ namespace Talent.Backend.Service.Services
             return _surveyBussiness.GetTotalRecorsdAsync();
         }
 
-        public async Task UpdateAsync(int id, SurveyDto surveyDto)
+        public async Task UpdateAsync(SurveyDto surveyDto)
         {
             var surveyMap = SurveyMapper.Map(surveyDto); ;
-            await _surveyBussiness.UpdateAsync(id, surveyMap);   
+            await _surveyBussiness.UpdateAsync(surveyMap);
         }
     }
 }

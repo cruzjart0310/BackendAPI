@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Talent.Backend.Bussiness.Contracts;
@@ -20,17 +19,17 @@ namespace Talent.Backend.Bussiness
 
         public async Task<Survey> CreateAsync(Survey survey)
         {
-            var surveyMap = SurveyMapper.Map(survey); 
+            var surveyMap = SurveyMapper.Map(survey);
             var surveyRepository = await _surveyRepository.CreateAsync(surveyMap);
             return SurveyMapper.Map(surveyRepository);
         }
 
         public async Task DeleteAsync(int id)
         {
-            await _surveyRepository.DeleteAsync(id);    
+            await _surveyRepository.DeleteAsync(id);
         }
 
-        public async Task<bool> ExistAsync(int id) => await _surveyRepository.ExistAsync(id);   
+        public async Task<bool> ExistAsync(int id) => await _surveyRepository.ExistAsync(id);
 
         public async Task<IEnumerable<Survey>> GetAllAsync(Pagination pagination)
         {
@@ -53,10 +52,10 @@ namespace Talent.Backend.Bussiness
 
         public Task<int> GetTotalRecorsdAsync() => _surveyRepository.GetTotalRecorsdAsync();
 
-        public async Task UpdateAsync(int id, Survey survey)
+        public async Task UpdateAsync(Survey survey)
         {
             var surveyMap = SurveyMapper.Map(survey);
-            await _surveyRepository.UpdateAsync(id, surveyMap);
+            await _surveyRepository.UpdateAsync(surveyMap);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +60,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(int id, QuestionType questionType)
+        public Task UpdateAsync(QuestionType questionType)
         {
             throw new NotImplementedException();
         }

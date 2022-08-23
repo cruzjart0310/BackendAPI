@@ -3,14 +3,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
@@ -19,7 +16,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using Talent.Backend.API.Middleware;
 using Talent.Backend.DataAccessEF;
 using Talent.Backend.DataAccessEF.Entities;
 using Talent.Backend.Email;
@@ -101,7 +97,8 @@ namespace Talent.Backend.API
                 //};
             });
 
-            services.AddIdentity<User, IdentityRole>(opt => {
+            services.AddIdentity<User, IdentityRole>(opt =>
+            {
                 opt.Password.RequiredLength = 7;
                 opt.Password.RequireDigit = false;
                 opt.User.RequireUniqueEmail = true;
@@ -209,8 +206,8 @@ namespace Talent.Backend.API
                     if (ex is DbException) // we only care about this particular exception
                     {
                         // Send exception message as plain message
-                       // _logger.Log(LogLevel.Error, ex.Message);
-                        
+                        // _logger.Log(LogLevel.Error, ex.Message);
+
                         context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                         responseModel.Type = "DbException";
                         responseModel.Status = context.Response.StatusCode;

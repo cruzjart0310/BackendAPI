@@ -105,7 +105,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
             }
         }
 
-        public Task UpdateAsync(int id, Question question)
+        public Task UpdateAsync(Question question)
         {
             throw new NotImplementedException();
         }

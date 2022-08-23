@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Talent.Backend.Bussiness.Models;
+﻿using Talent.Backend.Bussiness.Models;
 using Talent.Backend.Service.Dtos;
 
 namespace Talent.Backend.Service.Mappers
@@ -16,9 +11,9 @@ namespace Talent.Backend.Service.Mappers
             {
                 Element = new UserDto
                 {
-                    Id =    userPointResponse.Element.Id,
-                    FirstName = userPointResponse.Element.FirstName,    
-                    LastName = userPointResponse.Element.LastName,  
+                    Id = userPointResponse.Element.Id,
+                    FirstName = userPointResponse.Element.FirstName,
+                    LastName = userPointResponse.Element.LastName,
                 },
                 Points = userPointResponse.Points
             };

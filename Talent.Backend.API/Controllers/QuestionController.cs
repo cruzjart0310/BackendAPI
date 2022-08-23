@@ -1,15 +1,7 @@
-﻿using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SpreadsheetLight;
-using System;
-using System.IO;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
 using System.Threading.Tasks;
-using Talent.Backend.API.Extensions;
 using Talent.Backend.API.Helpers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
@@ -54,7 +46,7 @@ namespace Talent.Backend.API.Controllers
         [HttpPost("UploadFile")]
         public async Task<ActionResult> UploadFile([FromForm] IFormFile file)
         {
-            if(file == null)
+            if (file == null)
             {
                 return BadRequest();
             }
@@ -86,7 +78,7 @@ namespace Talent.Backend.API.Controllers
                 return NotFound();
 
             await _questionService
-                .UpdateAsync(id, questionDto);
+                .UpdateAsync(questionDto);
 
             return NoContent();
         }

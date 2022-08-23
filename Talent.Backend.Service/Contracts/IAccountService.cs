@@ -2,7 +2,7 @@
 
 namespace Talent.Backend.Service.Contracts
 {
-    public  interface IAccountService: IGenericAccountService<UserForRegistrationDto>
+    public interface IAccountService : IGenericAccountService<UserForRegistrationDto>
     {
 
     }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Talent.Backend.Bussiness.Models;
+﻿using System.Linq;
 using Talent.Backend.Service.Dtos;
 
 namespace Talent.Backend.Service.Mappers

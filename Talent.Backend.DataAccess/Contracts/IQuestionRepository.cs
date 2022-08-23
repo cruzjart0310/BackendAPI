@@ -2,7 +2,7 @@
 
 namespace Talent.Backend.DataAccessEF.Contracts
 {
-    public interface IQuestionRepository: IGenericRepository<Question>, IFileDataUploaded
+    public interface IQuestionRepository : IGenericRepository<Question>, IFileDataUploaded
     {
 
     }

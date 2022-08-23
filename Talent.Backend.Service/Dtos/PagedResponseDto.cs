@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Talent.Backend.Service.Dtos
 {
-    public class PagedResponseDto<T> :ResponseDto<T>
+    public class PagedResponseDto<T> : ResponseDto<T>
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

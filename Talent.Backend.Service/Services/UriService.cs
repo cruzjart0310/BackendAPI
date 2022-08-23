@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.AspNetCore.WebUtilities;
+﻿using Microsoft.AspNetCore.WebUtilities;
+using System;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
 
@@ -20,7 +20,7 @@ namespace Talent.Backend.Service.Services
                 .AddQueryString(endPoint.ToString(), "page", paginationDto.PageNumber.ToString());
             modifiedUri = QueryHelpers
                 .AddQueryString(modifiedUri, "pageSize", paginationDto.PageSize.ToString());
-            return new Uri(modifiedUri); 
+            return new Uri(modifiedUri);
         }
     }
 }

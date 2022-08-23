@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Talent.Backend.DataAccessEF.Models;
 
 namespace Talent.Backend.DataAccessEF.Extensions
@@ -12,7 +8,7 @@ namespace Talent.Backend.DataAccessEF.Extensions
         public static IQueryable<T> Pagination<T>(this IQueryable<T> queryable, Pagination pagination)
         {
             var q = queryable
-                
+
                 .Skip((pagination.Page - 1) * pagination.Page)
                 .Take(pagination.PageZise);
 

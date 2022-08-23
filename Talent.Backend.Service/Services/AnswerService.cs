@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Talent.Backend.Bussiness.Contracts;
-using Talent.Backend.Service.Mappers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
+using Talent.Backend.Service.Mappers;
 
 namespace Talent.Backend.Service.Services
 {
@@ -15,7 +15,7 @@ namespace Talent.Backend.Service.Services
 
         public AnswerService(IAnswerBussiness answerBussiness)
         {
-            _answerBussiness = answerBussiness; 
+            _answerBussiness = answerBussiness;
         }
 
         public async Task<AnswerDto> CreateAsync(AnswerDto answerDto)
@@ -52,7 +52,7 @@ namespace Talent.Backend.Service.Services
             return await _answerBussiness.GetTotalRecorsdAsync();
         }
 
-        public Task UpdateAsync(int id, AnswerDto answerDto)
+        public Task UpdateAsync(AnswerDto answerDto)
         {
             throw new NotImplementedException();
         }

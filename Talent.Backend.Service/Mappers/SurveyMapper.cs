@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Talent.Backend.Bussiness.Models;
 
 namespace Talent.Backend.Service.Mappers
@@ -11,7 +7,7 @@ namespace Talent.Backend.Service.Mappers
     {
         public static Survey Map(Talent.Backend.Service.Dtos.SurveyDto surveyDto)
         {
-            if (surveyDto == null) return null;    
+            if (surveyDto == null) return null;
 
             return new Survey
             {

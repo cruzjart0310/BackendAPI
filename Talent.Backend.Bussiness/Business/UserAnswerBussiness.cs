@@ -40,7 +40,7 @@ namespace Talent.Backend.Bussiness
 
         public async Task<UserPointResponse<User>> GetPointsAsync(string userId, int surveyId)
         {
-            var mapper = await _userAnswerRepository.GetPointsAsync(userId, surveyId);  
+            var mapper = await _userAnswerRepository.GetPointsAsync(userId, surveyId);
 
             return UserPointMapper.Map(mapper);
         }
@@ -54,10 +54,10 @@ namespace Talent.Backend.Bussiness
 
         public Task<int> GetTotalRecorsdAsync() => _userAnswerRepository.GetTotalRecorsdAsync();
 
-        public async Task UpdateAsync(int id, UserAnswer userAnswer)
+        public async Task UpdateAsync(UserAnswer userAnswer)
         {
             var userAnswerMap = UserAnswerMapper.Map(userAnswer);
-            await _userAnswerRepository.UpdateAsync(id, userAnswerMap);
+            await _userAnswerRepository.UpdateAsync(userAnswerMap);
         }
     }
 }

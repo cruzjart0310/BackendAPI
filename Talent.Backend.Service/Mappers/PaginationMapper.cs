@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Talent.Backend.Service.Dtos;
+﻿using Talent.Backend.Service.Dtos;
 
 namespace Talent.Backend.Service.Mappers
 {
@@ -12,9 +7,9 @@ namespace Talent.Backend.Service.Mappers
         public static Talent.Backend.Bussiness.Models.Pagination Map(PaginationDto paginationDto)
             => new Bussiness.Models.Pagination
             {
-                Page = paginationDto.PageNumber,  
+                Page = paginationDto.PageNumber,
                 PageZise = paginationDto.PageSize,
             };
-        
+
     }
 }

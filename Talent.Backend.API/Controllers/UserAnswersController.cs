@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Talent.Backend.API.Extensions;
 using Talent.Backend.API.Helpers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
@@ -21,7 +18,7 @@ namespace Talent.Backend.API.Controllers
         public UserAnswersController(IUserAnswerService userAnswerService, IUserService userService, IUriService uriService)
         {
             _userAnswerService = userAnswerService;
-            _userService = userService; 
+            _userService = userService;
             _uriService = uriService;
         }
 
@@ -88,7 +85,7 @@ namespace Talent.Backend.API.Controllers
                 return NotFound();
 
             await _userAnswerService
-                .UpdateAsync(Convert.ToInt32(id), surveyDto);
+                .UpdateAsync(surveyDto);
 
             return NoContent();
         }

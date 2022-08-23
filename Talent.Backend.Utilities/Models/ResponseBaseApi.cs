@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Talent.Backend.Common.Models
 {
@@ -18,9 +15,9 @@ namespace Talent.Backend.Common.Models
 
         public T Element { get; set; }
 
-        public Error Error { get; set; }    
+        public Error Error { get; set; }
 
-        
+
     }
 
     public class Error

@@ -51,7 +51,7 @@ namespace Talent.Backend.API.Middleware
                 await response.WriteAsync(result);
             }
 
-           
+
         }
     }
 

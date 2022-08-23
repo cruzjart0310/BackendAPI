@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Talent.Backend.Bussiness.Models;
-using Talent.Backend.DataAccessEF.Entities;
+﻿using Talent.Backend.Bussiness.Models;
 
 namespace Talent.Backend.Bussiness.Mappers
 {
@@ -15,7 +12,7 @@ namespace Talent.Backend.Bussiness.Mappers
             return new Talent.Backend.DataAccessEF.Models.UserForAuthentication
             {
                 Email = userForAuthentication.Email,
-                Password = userForAuthentication.Password,  
+                Password = userForAuthentication.Password,
                 ClientUri = userForAuthentication.ClientUri,
             };
         }

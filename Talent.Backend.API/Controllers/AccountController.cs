@@ -1,13 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Reflection;
 using System.Threading.Tasks;
-using Talent.Backend.API.Extensions;
-using Talent.Backend.API.Helpers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
 
@@ -35,7 +29,7 @@ namespace Talent.Backend.API.Controllers
             var result = await _accountService.CreateAsync(userDto);
             if (result.Errors != null && result.Errors.Any())
             {
-                return BadRequest(new { result.Errors});
+                return BadRequest(new { result.Errors });
             }
             return Ok(201);
         }
@@ -78,7 +72,7 @@ namespace Talent.Backend.API.Controllers
         public async Task<ActionResult> LogOut()
         {
             await _accountService.LogOutAsync();
-           
+
             return Ok();
         }
 

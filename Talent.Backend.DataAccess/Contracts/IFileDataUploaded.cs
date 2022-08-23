@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace Talent.Backend.DataAccessEF.Contracts
 {
-    public  interface IFileDataUploaded
+    public interface IFileDataUploaded
     {
-        Task SaveDataFromFile(IFormFile file);  
+        Task SaveDataFromFile(IFormFile file);
     }
 }

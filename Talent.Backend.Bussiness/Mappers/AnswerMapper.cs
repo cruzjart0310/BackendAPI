@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Talent.Backend.DataAccessEF.Entities;
+﻿using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.Bussiness.Mappers
 {

@@ -14,13 +14,13 @@ namespace Talent.Backend.API.Helpers
             var roundedTotalPage = Convert.ToInt32(Math.Ceiling(totalPages));
 
             response.PreviousPage =
-                paginationDto.PageNumber -1 >= 1 && paginationDto.PageNumber <= roundedTotalPage
-                ? uriService.GetUri(new PaginationDto(paginationDto.PageNumber -1, paginationDto.PageSize), route) 
+                paginationDto.PageNumber - 1 >= 1 && paginationDto.PageNumber <= roundedTotalPage
+                ? uriService.GetUri(new PaginationDto(paginationDto.PageNumber - 1, paginationDto.PageSize), route)
                 : null;
 
             response.NextPage =
                paginationDto.PageNumber >= 1 && paginationDto.PageNumber < roundedTotalPage
-               ? uriService.GetUri(new PaginationDto(paginationDto.PageNumber +1, paginationDto.PageSize), route) 
+               ? uriService.GetUri(new PaginationDto(paginationDto.PageNumber + 1, paginationDto.PageSize), route)
                : null;
 
             response.FirstPage = uriService.GetUri(new PaginationDto(1, paginationDto.PageSize), route);

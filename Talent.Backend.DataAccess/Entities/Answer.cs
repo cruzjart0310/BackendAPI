@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Talent.Backend.DataAccessEF.Entities
 {
@@ -16,7 +12,7 @@ namespace Talent.Backend.DataAccessEF.Entities
         [ForeignKey("QuestionFK")]
         public int QuestionId { get; set; }
         public Question Question { get; set; }
-        public DateTime CreatedAt { get; set; } 
+        public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
     }

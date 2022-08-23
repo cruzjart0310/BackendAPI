@@ -1,16 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Talent.Backend.API.Helpers;
 using Talent.Backend.Bussiness;
 using Talent.Backend.Bussiness.Contracts;
 using Talent.Backend.DataAccessEF.Contracts;
 using Talent.Backend.DataAccessEF.Repositories;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Talent.Backend.Authentication.TokenGeneration;
-using Microsoft.Extensions.Configuration;
-using Talent.Backend.DataAccessEF.Entities;
-using Talent.Backend.API.Helpers;
 
 namespace Talent.Backend.API
 {

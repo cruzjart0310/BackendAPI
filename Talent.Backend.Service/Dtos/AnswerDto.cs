@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Talent.Backend.Service.Dtos
 {
@@ -13,6 +9,6 @@ namespace Talent.Backend.Service.Dtos
         public byte IsCorrect { get; set; }
         public int QuestionId { get; set; }
         public QuestionDto? Question { get; set; }
-        public DateTime CreatedAt { get; set; } 
+        public DateTime CreatedAt { get; set; }
     }
 }

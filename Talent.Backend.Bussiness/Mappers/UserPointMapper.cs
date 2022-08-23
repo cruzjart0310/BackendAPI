@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Talent.Backend.Bussiness.Models;
+﻿using Talent.Backend.Bussiness.Models;
 
 namespace Talent.Backend.Bussiness.Mappers
 {
@@ -16,8 +11,8 @@ namespace Talent.Backend.Bussiness.Mappers
                 Element = new User
                 {
                     Id = userPointResponse.Element.Id,
-                    FirstName = userPointResponse.Element.FirstName,    
-                    LastName = userPointResponse.Element.LastName,  
+                    FirstName = userPointResponse.Element.FirstName,
+                    LastName = userPointResponse.Element.LastName,
                 },
                 Points = userPointResponse.Points,
             };

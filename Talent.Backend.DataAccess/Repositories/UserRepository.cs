@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Talent.Backend.DataAccessEF.Contracts;
 using Talent.Backend.DataAccessEF.Entities;
-using Talent.Backend.DataAccessEF.Extensions;
 using Talent.Backend.DataAccessEF.Models;
 
 namespace Talent.Backend.DataAccessEF.Repositories
@@ -132,7 +129,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(int id, User user)
+        public Task UpdateAsync(User user)
         {
             throw new NotImplementedException();
         }

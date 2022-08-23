@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.Bussiness.Mappers
@@ -22,7 +18,7 @@ namespace Talent.Backend.Bussiness.Mappers
                     Nickname = user.UserProfile.Nickname,
                     Avatar = user.UserProfile.Avatar,
                     EnglishLevel = user.UserProfile.EnglishLevel,
-                    CvLink = user.UserProfile.CvLink,   
+                    CvLink = user.UserProfile.CvLink,
                     TechnicalKnowledg = user.UserProfile.TechnicalKnowledg,
                 },
                 Teams = user.Teams.Select(t => new TeamUser
@@ -46,7 +42,7 @@ namespace Talent.Backend.Bussiness.Mappers
                         LastName = t.UserResponsible.LastName,
                     }
                 }),
-                
+
             };
         }
 
@@ -57,7 +53,7 @@ namespace Talent.Backend.Bussiness.Mappers
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                IsMarried = user.IsMarried, 
+                IsMarried = user.IsMarried,
                 UserProfile = new Models.UserProfile
                 {
                     Nickname = user.UserProfile.Nickname,

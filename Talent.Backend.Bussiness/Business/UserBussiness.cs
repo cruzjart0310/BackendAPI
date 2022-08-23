@@ -20,7 +20,7 @@ namespace Talent.Backend.Bussiness
 
         public async Task<User> CreateAsync(User user)
         {
-            var userMap = UserMapper.Map(user); 
+            var userMap = UserMapper.Map(user);
             await _userRepository.CreateAsync(userMap);
             return user;
         }
@@ -59,11 +59,11 @@ namespace Talent.Backend.Bussiness
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(int id, User user)
+        public Task UpdateAsync(User user)
         {
             throw new NotImplementedException();
         }
 
-      
+
     }
 }

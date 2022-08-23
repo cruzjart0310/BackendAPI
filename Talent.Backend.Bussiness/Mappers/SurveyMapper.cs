@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.Bussiness.Mappers
@@ -8,7 +7,7 @@ namespace Talent.Backend.Bussiness.Mappers
     {
         public static Survey Map(Talent.Backend.Bussiness.Models.Survey survey)
         {
-            if(survey == null) 
+            if (survey == null)
                 return null;
 
             return new Survey
@@ -31,7 +30,7 @@ namespace Talent.Backend.Bussiness.Mappers
                         IsCorrect = a.IsCorrect,
                     }).ToList(),
                 }).ToList(),
-                CreatedAt = survey.CreatedAt,   
+                CreatedAt = survey.CreatedAt,
             };
         }
 

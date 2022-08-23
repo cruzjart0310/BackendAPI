@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Talent.Backend.Service.Dtos
+﻿namespace Talent.Backend.Service.Dtos
 {
     public class ResponseDto<T>
     {
@@ -30,8 +24,8 @@ namespace Talent.Backend.Service.Dtos
 
         public static ResponseDto<T> Fail(string errorMessage, string errorDetails)
         {
-            return new ResponseDto<T> { Success = false, Message = errorMessage, ErrorDetails= errorDetails };
+            return new ResponseDto<T> { Success = false, Message = errorMessage, ErrorDetails = errorDetails };
         }
-        
+
     }
 }

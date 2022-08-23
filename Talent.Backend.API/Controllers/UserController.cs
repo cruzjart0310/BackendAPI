@@ -23,7 +23,7 @@ namespace Talent.Backend.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
-        public async Task<ActionResult<UserDto>> Index([FromQuery]  PaginationDto paginationDto)
+        public async Task<ActionResult<UserDto>> Index([FromQuery] PaginationDto paginationDto)
         {
             var users = await _userService.GetAllAsync(paginationDto);
             var queryable = users.AsQueryable();

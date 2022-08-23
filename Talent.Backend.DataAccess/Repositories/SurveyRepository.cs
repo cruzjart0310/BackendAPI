@@ -78,12 +78,12 @@ namespace Talent.Backend.DataAccessEF.Repositories
                         Title = q.Title,
                         Type = new QuestionType
                         {
-                            Id= q.Type.Id,
-                            Title= q.Title,
+                            Id = q.Type.Id,
+                            Title = q.Title,
                         },
                         Answers = q.Answers.Select(a => new Answer
                         {
-                            Id = a.Id,  
+                            Id = a.Id,
                             Title = a.Title,
                             IsCorrect = a.IsCorrect,
                             CreatedAt = a.CreatedAt,
@@ -92,7 +92,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
                     }),
                     CreatedAt = s.CreatedAt,
                 })
-                
+
                 .AsNoTracking()
                 .AsQueryable()
                 .Skip((pagination.Page - 1) * pagination.PageZise)
@@ -122,7 +122,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
                 .Where(s => s.DeletedAt == null)
                 .CountAsync();
 
-        public async Task UpdateAsync(int id, Survey survey)
+        public async Task UpdateAsync(Survey survey)
         {
             survey.UpdatedAt = DateTime.Now;
             _context.Surveys.Update(survey);

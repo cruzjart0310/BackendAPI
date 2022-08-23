@@ -13,7 +13,7 @@ namespace Talent.Backend.Service.Services
 
         public AccountService(IAccountBussiness accounBussiness)
         {
-            _accountBussiness = accounBussiness; 
+            _accountBussiness = accounBussiness;
         }
 
         public async Task<AccountResponseDto<UserForRegistrationDto>> CreateAsync(UserForRegistrationDto userDto)
@@ -48,7 +48,7 @@ namespace Talent.Backend.Service.Services
         public async Task<LoginResposeDto<UserForAuthenticationDto>> LoginAsync(UserForAuthenticationDto entity)
         {
             var map = UserForAuthenticationMapper.Map(entity);
-            var userLogin = await  _accountBussiness.LoginAsync(map);
+            var userLogin = await _accountBussiness.LoginAsync(map);
             return UserForAuthenticationMapper.Map(userLogin);
         }
 

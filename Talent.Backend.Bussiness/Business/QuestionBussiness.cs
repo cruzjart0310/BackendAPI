@@ -21,7 +21,7 @@ namespace Talent.Backend.Bussiness
 
         public async Task<Question> CreateAsync(Question question)
         {
-            var questionMap = QuestionMapper.Map(question); 
+            var questionMap = QuestionMapper.Map(question);
             var questionRepository = await _questionRepository.CreateAsync(questionMap);
             return QuestionMapper.Map(questionRepository);
         }
@@ -68,11 +68,11 @@ namespace Talent.Backend.Bussiness
             await _questionRepository.SaveDataFromFile(file);
         }
 
-        public Task UpdateAsync(int id, Question Question)
+        public Task UpdateAsync(Question Question)
         {
             throw new NotImplementedException();
         }
 
-      
+
     }
 }

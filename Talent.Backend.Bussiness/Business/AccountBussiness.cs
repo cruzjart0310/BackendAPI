@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Talent.Backend.Bussiness.Contracts;
 using Talent.Backend.Bussiness.Mappers;
@@ -20,7 +18,7 @@ namespace Talent.Backend.Bussiness
 
         public async Task<AccountResponse<UserForRegistration>> CreateAsync(UserForRegistration user)
         {
-            var userMap = UserRegistrationMapper.Map(user); 
+            var userMap = UserRegistrationMapper.Map(user);
             var userRepository = await _accountRepository.CreateAsync(userMap);
             return UserRegistrationMapper.Map(userRepository);
         }
@@ -36,7 +34,7 @@ namespace Talent.Backend.Bussiness
             throw new NotImplementedException();
         }
 
-        public async Task<AccountResponse<UserForRegistration>>ForgotPasswordAsync(string email)
+        public async Task<AccountResponse<UserForRegistration>> ForgotPasswordAsync(string email)
         {
             var accountRepository = await _accountRepository.ForgotPasswordAsync(email, "");
             return UserRegistrationMapper.Map(accountRepository);

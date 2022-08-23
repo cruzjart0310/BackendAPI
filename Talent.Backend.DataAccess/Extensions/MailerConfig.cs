@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.WebUtilities;
-using System;
+﻿using Microsoft.AspNetCore.WebUtilities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Talent.Backend.Email.Models;
 
 namespace Talent.Backend.DataAccessEF.Extensions
@@ -18,7 +13,7 @@ namespace Talent.Backend.DataAccessEF.Extensions
             return message;
         }
 
-        public static Message getMessage(string urlClient,string email)
+        public static Message getMessage(string urlClient, string email)
         {
             var content = $"Your account is locked out. To reset the password click this link: {urlClient = "http://localhost:44333/authentication/forgotpassword"}";
             var message = new Message(new string[] { email }, "Locked out account information", content, null);

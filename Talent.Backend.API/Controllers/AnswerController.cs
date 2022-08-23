@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
-using Talent.Backend.API.Extensions;
 using Talent.Backend.API.Helpers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
@@ -19,7 +18,7 @@ namespace Talent.Backend.API.Controllers
         public AnswerController(IAnswerService answerService, IUriService uriService)
         {
             _answerService = answerService;
-            _uriService = uriService;   
+            _uriService = uriService;
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -27,7 +26,7 @@ namespace Talent.Backend.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
-        public async Task<ActionResult<AnswerDto>> Index([FromQuery]  PaginationDto paginationDto)
+        public async Task<ActionResult<AnswerDto>> Index([FromQuery] PaginationDto paginationDto)
         {
             var route = Request.Path.Value;
             var answers = await _answerService.GetAllAsync(paginationDto);
@@ -58,7 +57,7 @@ namespace Talent.Backend.API.Controllers
                 return NotFound();
 
             await _answerService
-                .UpdateAsync(id, answerDto);
+                .UpdateAsync(answerDto);
 
             return NoContent();
         }

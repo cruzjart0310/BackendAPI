@@ -20,7 +20,7 @@ namespace Talent.Backend.Bussiness
 
         public async Task<QuestionType> CreateAsync(QuestionType questionType)
         {
-            var questionTypeMap = QuestionTypeMapper.Map(questionType); 
+            var questionTypeMap = QuestionTypeMapper.Map(questionType);
             var questionTypeRepository = await _questionTypeRepository.CreateAsync(questionTypeMap);
             return QuestionTypeMapper.Map(questionTypeRepository);
         }
@@ -56,11 +56,11 @@ namespace Talent.Backend.Bussiness
 
         public Task<int> GetTotalRecorsdAsync() => _questionTypeRepository.GetTotalRecorsdAsync();
 
-        public Task UpdateAsync(int id, QuestionType questionType)
+        public Task UpdateAsync(QuestionType questionType)
         {
             throw new NotImplementedException();
         }
 
-      
+
     }
 }

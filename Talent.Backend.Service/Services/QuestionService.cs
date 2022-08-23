@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Talent.Backend.Bussiness.Contracts;
-using Talent.Backend.Service.Mappers;
 using Talent.Backend.Service.Contracts;
 using Talent.Backend.Service.Dtos;
-using Microsoft.AspNetCore.Http;
+using Talent.Backend.Service.Mappers;
 
 namespace Talent.Backend.Service.Services
 {
@@ -16,7 +16,7 @@ namespace Talent.Backend.Service.Services
 
         public QuestionService(IQuestionBussiness questionBussiness)
         {
-            _questionBussiness = questionBussiness; 
+            _questionBussiness = questionBussiness;
         }
 
         public async Task<QuestionDto> CreateAsync(QuestionDto questionDto)
@@ -63,7 +63,7 @@ namespace Talent.Backend.Service.Services
             await _questionBussiness.SaveDataFromFile(file);
         }
 
-        public Task UpdateAsync(int id, QuestionDto questionDto)
+        public Task UpdateAsync(QuestionDto questionDto)
         {
             throw new NotImplementedException();
         }

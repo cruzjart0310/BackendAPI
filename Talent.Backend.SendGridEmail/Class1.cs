@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Talent.Backend.SendGridEmail
+﻿namespace Talent.Backend.SendGridEmail
 {
     public class Class1
     {

@@ -77,12 +77,12 @@ namespace Talent.Backend.DataAccessEF.Repositories
                 .CountAsync();
 
             int totalCorrectAnswers = await (from ua in _context.UserAnswer
-                join a in _context.Answers on ua.AnswerId equals a.Id
-                join q in _context.Questions on a.QuestionId equals q.Id
-                where q.SurveyId == surveyId
-                where a.IsCorrect == 1
-                where ua.UserId == userId
-                select new {Id = a.Id})
+                                             join a in _context.Answers on ua.AnswerId equals a.Id
+                                             join q in _context.Questions on a.QuestionId equals q.Id
+                                             where q.SurveyId == surveyId
+                                             where a.IsCorrect == 1
+                                             where ua.UserId == userId
+                                             select new { Id = a.Id })
                 .CountAsync();
 
             double questionValue = (percentage / totalQuestions) * 1.0;
@@ -116,7 +116,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
             await _context.UserAnswer
             .CountAsync();
 
-        public async Task UpdateAsync(int id, UserAnswer userAnswer)
+        public async Task UpdateAsync(UserAnswer userAnswer)
         {
             _context.UserAnswer.Update(userAnswer);
             _context.Entry(userAnswer).Property(x => x.CreatedAt).IsModified = false;

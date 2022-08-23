@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Talent.Backend.DataAccessEF.Entities;
+﻿using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.Bussiness.Mappers
 {
@@ -12,8 +10,8 @@ namespace Talent.Backend.Bussiness.Mappers
             {
                 Id = question.Id,
                 Title = question.Title,
-                TypeId = question.TypeId,   
-                SurveyId = question.SurveyId,   
+                TypeId = question.TypeId,
+                SurveyId = question.SurveyId,
                 CreatedAt = question.CreatedAt,
                 Type = new QuestionType
                 {

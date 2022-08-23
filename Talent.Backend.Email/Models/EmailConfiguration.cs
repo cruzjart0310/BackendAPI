@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Talent.Backend.Email.Models
+﻿namespace Talent.Backend.Email.Models
 {
     public class EmailConfiguration
     {

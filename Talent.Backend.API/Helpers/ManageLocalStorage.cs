@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Talent.Backend.API.Helpers
 {
-    public class ManageLocalStorage: IManageAzureStorage
+    public class ManageLocalStorage : IManageAzureStorage
     {
         private readonly IWebHostEnvironment _env;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -17,24 +17,24 @@ namespace Talent.Backend.API.Helpers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        
+
 
         public Task DeleteFile(string path, string container)
         {
             if (string.IsNullOrEmpty(path))
             {
-                return Task.CompletedTask;  
+                return Task.CompletedTask;
             }
 
-            var fileName = Path.GetFileName(path);  
+            var fileName = Path.GetFileName(path);
             var diectoryFile = Path.Combine(_env.WebRootPath, container, fileName);
-            
+
             if (File.Exists(diectoryFile))
             {
-                File.Delete(diectoryFile);  
+                File.Delete(diectoryFile);
             }
 
-            return Task.CompletedTask;  
+            return Task.CompletedTask;
         }
 
         public async Task<string> SaveFile(string container, IFormFile file)
@@ -45,9 +45,9 @@ namespace Talent.Backend.API.Helpers
 
             if (!File.Exists(folder))
             {
-                Directory.CreateDirectory(folder);  
-            }  
-            
+                Directory.CreateDirectory(folder);
+            }
+
             string path = Path.Combine(folder, fileName);
             using (var stream = new MemoryStream())
             {

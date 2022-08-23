@@ -23,7 +23,8 @@ namespace Talent.Backend.Authentication.TokenGeneration
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(issuer: null, audience: null, claims: claims, expires: expiration, signingCredentials: creds);
 
-            return new TokenResponse { 
+            return new TokenResponse
+            {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Expiration = expiration,
             };

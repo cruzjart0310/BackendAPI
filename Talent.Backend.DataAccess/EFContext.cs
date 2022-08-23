@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Talent.Backend.DataAccessEF.Entities;
 using System;
-using Talent.Backend.DataAccessEF.Seeders;
+using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.DataAccessEF
 {
@@ -39,7 +38,7 @@ namespace Talent.Backend.DataAccessEF
             {
                 optionBuilder.UseSqlServer(@"Server=LAPTOP-NOTLMK8N;Database=backendApi;Integrated Security=True");
             }
-            
+
             base.OnConfiguring(optionBuilder);
         }
 
@@ -101,7 +100,7 @@ namespace Talent.Backend.DataAccessEF
                 {
                     Id = Guid.NewGuid().ToString().ToLower(),
                     Name = "Administrator",
-                    NormalizedName= "Administrator"
+                    NormalizedName = "Administrator"
                 });
 
                 r.HasData(new
@@ -126,7 +125,7 @@ namespace Talent.Backend.DataAccessEF
                 {
                     Id = 1,
                     Title = "Select",
-                    CreatedAt =DateTime.Now,
+                    CreatedAt = DateTime.Now,
                 });
 
                 r.HasData(new

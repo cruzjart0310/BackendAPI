@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Talent.Backend.DataAccessEF.Entities;
+﻿using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.DataAccessEF.Seeders
 {
-    public  class SurveySeeder
+    public class SurveySeeder
     {
         public void Seed()
         {

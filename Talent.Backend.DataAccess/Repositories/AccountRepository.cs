@@ -1,16 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Talent.Backend.Authentication.TokenGeneration;
 using Talent.Backend.DataAccessEF.Contracts;
 using Talent.Backend.DataAccessEF.Entities;
-using Talent.Backend.DataAccessEF.Models;
-using Microsoft.AspNetCore.Identity;
-using Talent.Backend.Authentication.TokenGeneration;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.WebUtilities;
-using Talent.Backend.Email.Contracts;
 using Talent.Backend.DataAccessEF.Extensions;
+using Talent.Backend.DataAccessEF.Models;
+using Talent.Backend.Email.Contracts;
 
 namespace Talent.Backend.DataAccessEF.Repositories
 {
@@ -37,7 +36,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
 
         public async Task<AccountResponse<User>> CreateAsync(User user)
         {
-            user.CreatedAt = DateTime.Now;   
+            user.CreatedAt = DateTime.Now;
             user.UserProfile = new UserProfile();
             user.UserProfile.Avatar = "avatar.png";
             user.UserProfile.UserId = user.Id;
@@ -52,7 +51,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
             }
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            await _emailSender.SendEmailAsync(MailerConfig.getMessage(user.Url= "https://localhost:44327/api/account/confirm", new Dictionary<string, string>
+            await _emailSender.SendEmailAsync(MailerConfig.getMessage(user.Url = "https://localhost:44327/api/account/confirm", new Dictionary<string, string>
             {
                 {"token", token },
                 {"email", user.Email }
@@ -126,7 +125,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
             };
         }
 
-        public async Task<AccountResponse<User>> EmailConfirmedAsync(string email,string token)
+        public async Task<AccountResponse<User>> EmailConfirmedAsync(string email, string token)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)

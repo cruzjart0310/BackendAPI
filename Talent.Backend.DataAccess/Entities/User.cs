@@ -2,14 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Talent.Backend.DataAccessEF.Entities;
 
 namespace Talent.Backend.DataAccessEF.Entities
 {
-    public class User: IdentityUser
+    public class User : IdentityUser
     {
         //public Guid Id { get; set; }    
         public string FirstName { get; set; }
@@ -21,6 +17,6 @@ namespace Talent.Backend.DataAccessEF.Entities
         public DateTime CreatedAt { get; set; }
 
         [NotMapped]
-        public string Url { get; set; } 
+        public string Url { get; set; }
     }
 }

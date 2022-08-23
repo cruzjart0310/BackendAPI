@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Talent.Backend.Bussiness.Models;
 
 namespace Talent.Backend.Service.Mappers
@@ -66,7 +62,7 @@ namespace Talent.Backend.Service.Mappers
                     },
                     //User = new Dtos.UserAssignedDto
                     //{
-                       
+
                     //    FirstName = t.User.FirstName,
                     //    LastName = t.User.LastName,
                     //},
@@ -85,7 +81,7 @@ namespace Talent.Backend.Service.Mappers
             {
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
-                Email= userDto.Email,
+                Email = userDto.Email,
                 Password = userDto.Password
             };
         }
