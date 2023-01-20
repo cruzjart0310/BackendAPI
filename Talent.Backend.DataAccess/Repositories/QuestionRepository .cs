@@ -45,7 +45,7 @@ namespace Talent.Backend.DataAccessEF.Repositories
             var query = await _context.Set<Question>()
                 .Include(t => t.Type)
                 .Include(s => s.Survey)
-                .OrderBy(x => x.Id)
+                .OrderByDescending(x => x.CreatedAt)
                 .AsNoTracking()
                 .AsQueryable()
                 .Skip((pagination.Page - 1) * pagination.PageZise)
